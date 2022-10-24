@@ -1,11 +1,11 @@
-import Homepage from './structure/homepage/Homepage';
 import Header from './structure/homepage/Header';
+import Hero from './structure/homepage/Hero';
 
 function App() {
   return (
     <>
       <Header/>
-      <Homepage/>
+      <Hero/>
     </>
   );
 }

@@ -17,7 +17,7 @@ const Header : React.FC = () => {
             <Button variant='link' textTransform='uppercase' _hover={{ textDecoration: "none" }}>About Us</Button>
         </Flex>
         <Spacer></Spacer>
-        <Button colorScheme='facebook'>Order a cleaning</Button>
+        <Button colorScheme='linkedin' rounded='100'>Order a cleaning</Button>
     </Container>
     )
 }
