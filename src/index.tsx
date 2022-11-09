@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import theme from './Theme/themeOverrides';
+import theme from './theme/themeOverrides';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

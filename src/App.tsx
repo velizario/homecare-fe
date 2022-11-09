@@ -1,13 +1,16 @@
-import Header from './structure/homepage/Header';
-import Hero from './structure/homepage/Hero';
 import Homepage from './structure/homepage/Homepage';
-import Services from './structure/homepage/Services';
+import OrderCleaningPage from './structure/ordercleaning/OrderCleaningPage';
+import ProfileFull from './structure/Profile/ProfileFull';
+import SearchPage from './structure/searchpage/SearchPage';
 
 
 function App() {
   return (
     <>
-      <Homepage></Homepage>
+      {/* <Homepage></Homepage> */}
+      {/* <OrderCleaningPage></OrderCleaningPage>  */}
+      {/* <SearchPage></SearchPage> */}
+      <ProfileFull></ProfileFull>
     </>
   );
 }

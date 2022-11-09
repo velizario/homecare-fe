@@ -1,8 +1,41 @@
 import { extendTheme, theme as base } from "@chakra-ui/react";
 import { mode } from '@chakra-ui/theme-tools'
   
-const theme = extendTheme({  
-    // add custom color palette
+const theme = extendTheme({
+    styles: {
+        global: {
+            '*, *::before, &::after': {
+                borderStyle: 'none',
+                borderColor: "chakra-border-color", //default
+                wordWrap: "break-word",  //default
+            },
+            body: {
+              fontFamily: "body", //default
+              color: "chakra-body-text", //default
+              bg: "chakra-body-bg", //default
+              transitionProperty: "background-color", //default
+              transitionDuration: "normal", //default
+              lineHeight: "base", //default
+            },
+            "*::placeholder": {
+              color: "chakra-placeholder-color", //default
+            },
+        },
+    },
+  
+
+    components: {
+      Container: {
+        baseStyle: {
+          maxW: '8xl',
+          px:'20',
+          py: '6'
+        }
+      }
+    }
+
+
+        // add custom color palette
     // colors: {
     //     brand: {
     //         100: "#f7fafc",
@@ -10,13 +43,6 @@ const theme = extendTheme({
     //         900: "#1a202c",
     //     },
     // },
-    styles: {
-        global: {
-            '*, *::before, &::after': {
-                borderStyle: 'none',
-            },
-        }
-    }
 });
 
 export default theme;

@@ -1,13 +1,13 @@
-import { Button,  Container, Flex, Spacer, Text} from '@chakra-ui/react'
-import FreskaLogo from '../../utils/FreskaLogo';
+import { Button,  Container, Flex, Spacer, Image } from '@chakra-ui/react'
+import freskalogo from '../../resources/freskalogo.svg';
 
 
 
 const Header : React.FC = () => {
     return (
-    <Container maxW='full' h='28' bg='gray.50' alignItems="center" display='flex'>
+    <Container px='8' maxW='full' h='24' bg='gray.50' alignItems="center" display='flex'>
         <Flex gap='14' >
-            {FreskaLogo}
+            <Image src={freskalogo} alt="SVG as an image" h='6' cursor='pointer'></Image>
             <Button variant='link' textTransform='uppercase' _hover={{ textDecoration: "none" }}>Services</Button>
             <Button variant='link' textTransform='uppercase' _hover={{ textDecoration: "none" }}>About Us</Button>
         </Flex>
