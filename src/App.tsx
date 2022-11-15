@@ -9,8 +9,7 @@ function App() {
     <>
       {/* <Homepage></Homepage> */}
       {/* <OrderCleaningPage></OrderCleaningPage>  */}
-      {/* <SearchPage></SearchPage> */}
-      <ProfileFull></ProfileFull>
+      <SearchPage></SearchPage>
     </>
   );
 }

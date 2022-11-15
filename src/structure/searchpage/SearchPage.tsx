@@ -1,9 +1,12 @@
-import { Container, Box, FormControl, Text, Grid, GridItem, HStack, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import { Container, Box, FormControl, Text, Grid, GridItem, HStack, Tag, TagCloseButton, TagLabel, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, useDisclosure, Divider } from "@chakra-ui/react";
+import React from "react";
 import Dropdown from "../../utils/Dropdown";
 import { PickerOptions } from "../../utils/Dropdown";
 import Footer from "../homepage/Footer";
 import Header from "../homepage/Header";
+import ProfileFull from "../Profile/ProfileFull";
 import ProfileCard from "../Profile/ProfileThumbnail";
+import { RiArrowLeftSLine } from 'react-icons/ri'
 
 export const colorOptions:PickerOptions = [
     { value: "blue", label: "Blue", color: "#0052CC" },
@@ -21,6 +24,8 @@ export const filterOptions:PickerOptions = [
   ];
 
 const SearchPage:React.FC = () => {
+
+
     return (
         <>
             <Header></Header>
@@ -70,13 +75,21 @@ const SearchPage:React.FC = () => {
         
                     </HStack>
                 </Box>
-                <Grid templateColumns='repeat(2, 1fr)' gap={10} mb='10'>
-                    <GridItem><ProfileCard/></GridItem>
-                    <GridItem><ProfileCard/></GridItem>
-                    <GridItem><ProfileCard/></GridItem>
-                    <GridItem><ProfileCard/></GridItem>
-                    <GridItem><ProfileCard/></GridItem>
-                    <GridItem><ProfileCard/></GridItem>
+                <Grid templateColumns='repeat(3,1fr)' gap='10'>  
+                    <GridItem colSpan={2} display='flex' flexDirection='column' rowGap={5} mb='10'>
+                        <ProfileCard/>
+                        {/* <Divider borderColor='gray.300' /> */}
+                        <ProfileCard/>
+                        {/* <Divider borderColor='gray.300' /> */}
+                        <ProfileCard/>
+                        {/* <Divider borderColor='gray.300' /> */}
+                        <ProfileCard/>
+                        {/* <Divider borderColor='gray.300' /> */}
+                        <ProfileCard/>
+                        {/* <Divider borderColor='gray.300' /> */}
+                        <ProfileCard/>
+                    </GridItem>
+                    <GridItem>right part of the screen</GridItem>
                 </Grid>
             </Container>
             <Footer></Footer>
