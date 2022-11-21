@@ -19,11 +19,36 @@ const theme = extendTheme({
             },
             "*::placeholder": {
               color: "chakra-placeholder-color", //default
-            },
+            }
         },
     },
-  
 
+    colors: {
+      brandPrimary: {
+        100: "#c4e5fd",
+        200: "#97d2fb",
+        300: "#75c3fa",
+        400: "#4eb1f9",
+        500: "#26a0f7",
+        600: "#098dec",
+        700: "#0776c5",
+        800: "#065e9d",
+        900: "#044776",
+      },
+
+      brandSecondary: {
+        100: "#eccbd9",
+        200: "#e3b5c8",
+        300: "#d897b2",
+        400: "#cd799c",
+        500: "#c25b86",
+        600: "#b34271",
+        700: "#95375e",
+        800: "#772c4b",
+        900: "#592139",
+      }
+    },
+  
     components: {
       Container: {
         baseStyle: {
@@ -31,7 +56,22 @@ const theme = extendTheme({
           px:'20',
           py: '6'
         }
-      }
+      },
+
+      Button: {
+        defaultProps: {
+          colorScheme: 'brandPrimary'
+        }
+      },
+
+      Tooltip: {
+        baseStyle: {
+          color: 'gray.600',
+          boxShadow: '0px 4px 6px rgba(100,100,100,0.3)'
+        }
+      },
+
+
     }
 
 

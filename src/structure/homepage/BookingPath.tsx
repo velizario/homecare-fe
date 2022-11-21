@@ -25,7 +25,7 @@ const BookingPath : React.FC = () => {
                     <Text fontSize='large'>Fill in your info and payment details. Your cleaner arrives on your desired time and you can enjoy a shiny home!</Text>
                 </GridItem>
             </Grid>
-            <Button colorScheme='linkedin' rounded='100' width='52' h='10' mb='4'>Order a cleaning</Button>
+            <Button rounded='100' width='52' h='10' mb='4'>Order a cleaning</Button>
         </Container>
     )
 }

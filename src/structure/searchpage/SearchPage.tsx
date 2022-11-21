@@ -18,7 +18,7 @@ export const colorOptions:PickerOptions = [
   ];
 
 export const filterOptions:PickerOptions = [
-    { value: "По подразбиране", label: "По подразбиране" },
+    { value: "Подразбиране", label: "Подразбиране" },
     { value: "Препоръчани", label: "Препоръчани" },
     { value: "Високо оценени", label: "Високо оценени" }
   ];
@@ -39,8 +39,8 @@ const SearchPage:React.FC = () => {
                         <Dropdown height='6' dropdownName='color' placeholderValue="Оценка" groupedOptions={colorOptions}/>
                     </FormControl>
                     <Box display='flex' gap='2' alignItems='center'>
-                        <Text w='min-content' whiteSpace='nowrap'>Сортирай по</Text>
-                        <Dropdown variant='unstyled' height='6' dropdownName='color' placeholderValue="По подразбиране" groupedOptions={filterOptions} defaultValue={[{ value: "По подразбиране", label: "По подразбиране" }]}/>
+                        <Text w='min-content' whiteSpace='nowrap' color='gray.600'>Сортирай по:</Text>
+                        <Dropdown variant='unstyled' height='6' dropdownName='color' placeholderValue="Подразбиране" groupedOptions={filterOptions} defaultValue={[{ value: "Подразбиране", label: "Подразбиране" }]}/>
                     </Box>
                 </Box>
                 <Box mb='10'>

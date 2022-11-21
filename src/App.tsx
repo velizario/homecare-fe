@@ -1,3 +1,5 @@
+import { Container } from '@chakra-ui/react';
+import BookCleaning from './structure/bookcleaning/BookCleaning';
 import Homepage from './structure/homepage/Homepage';
 import OrderCleaningPage from './structure/ordercleaning/OrderCleaningPage';
 import ProfileFull from './structure/Profile/ProfileFull';
@@ -9,6 +11,11 @@ function App() {
     <>
       {/* <Homepage></Homepage> */}
       {/* <OrderCleaningPage></OrderCleaningPage>  */}
+      <BookCleaning></BookCleaning>
+      <Container w='4xl'>
+          <ProfileFull></ProfileFull>
+      </Container>
+      <OrderCleaningPage></OrderCleaningPage>
       <SearchPage></SearchPage>
     </>
   );

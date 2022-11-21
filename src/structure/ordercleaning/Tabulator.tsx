@@ -12,9 +12,9 @@ const Tabulator :React.FC = () => {
     }
 
     return (
-        <Container mt='8' maxW='4xl'>
+        <Box>
             <Tabs index={tabIndex} onChange={handleTabsChange} variant='unstyled' w='100%'  display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-                <Box w='100%' maxW='md' mb='10'>
+                <Box w='100%' mb='10'>
                     <TabList display='flex' justifyContent='space-between' whiteSpace='nowrap' mb='5'>
                         <Tab w='33.3%' p='0' justifyContent='flex-start' color='gray.400' fontSize='xl' fontWeight='medium' _selected={{ color: 'currentColor' }}>
                             Service
@@ -45,7 +45,7 @@ const Tabulator :React.FC = () => {
                     </TabPanel>
                 </TabPanels>
             </Tabs>
-        </Container>
+        </Box>
     )
 }
 

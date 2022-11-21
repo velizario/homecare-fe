@@ -57,9 +57,9 @@ const Dropdown:React.FC<DropdownProps> = ( { groupedOptions, dropdownName, place
 
         placeholder: (provided, state) => ({
             ...provided,
-            color: 'black',
+            color: 'gray.600',
             fontSize: 'md',
-            fontWeight: "medium",
+            fontWeight: "normal",
             whiteSpace: 'nowrap',
 
         }),
@@ -67,6 +67,7 @@ const Dropdown:React.FC<DropdownProps> = ( { groupedOptions, dropdownName, place
         control: (provided, state) => ({
             ...provided,
             fontWeight: 'bold',
+            color: 'gray.600'
         }),
 
         menuList : (provided, state) => ({

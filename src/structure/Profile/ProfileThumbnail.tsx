@@ -32,7 +32,7 @@ const ProfileThumbnail:React.FC = () => {
                     </Box>
                 </GridItem>
                 <GridItem colSpan={1} display='flex' flexDirection='column' alignItems='flex-start'>
-                    <Button variant='link' onClick={onOpen} fontSize='lg' fontWeight='medium' mb='0.5' color='linkedin.600'>Marti Bruno</Button>
+                    <Button variant='link' onClick={onOpen} fontSize='lg' fontWeight='medium' mb='0.5'>Marti Bruno</Button>
                     <Box display='flex' alignItems='center' justifyContent='flex-start' mb='6'>
                         <Text mr='1'  fontSize='sm' fontWeight='medium' color='gray.600' >4,1</Text>
                         <Ratings size='5'></Ratings>
@@ -42,23 +42,23 @@ const ProfileThumbnail:React.FC = () => {
                     </Box>
                     <Text fontSize='sm'>Martí is a senior UI/UX designer based in New York. For the past several years, he's been designing digital products for the banking, hospitality, fashion, healthcare, pharmaceutical, automotive, and software industries.</Text>
                     <HStack gap='4' marginTop='auto'>
-                    <Tooltip hasArrow={true} placement='top' p='2' color='linkedin.400' bg='rgba(255,255,255,0.9)' borderRadius='md' fontSize='smaller' label='Високо оценен профил'>
-                            <Text as='span'><Icon as={GiStarFormation} h='6' w='6' p='0.5' color='linkedin.400' borderRadius='50%'></Icon></Text>
+                    <Tooltip hasArrow={true} placement='top' p='2' bg='rgba(255,255,255,1)' borderRadius='md' fontSize='smaller' label='Високо оценен профил'>
+                            <Text as='span'><Icon as={GiStarFormation} h='6' w='6' p='0.5' color='brandSecondary.400' borderRadius='50%'></Icon></Text>
                         </Tooltip>
-                        <Tooltip hasArrow={true} placement='top' p='2' color='linkedin.400' bg='rgba(255,255,255,0.9)' borderRadius='md' fontSize='smaller' label='Повече от година опит'>
-                            <Text as='span'><Icon as={GiWisdom} h='6' w='6' p='0.5' color='rgba(227, 170, 27, 1)' borderRadius='50%'></Icon></Text>
+                        <Tooltip hasArrow={true} placement='top' p='2' bg='rgba(255,255,255,1)' borderRadius='md' fontSize='smaller' label='Повече от година опит'>
+                            <Text as='span'><Icon as={GiWisdom} h='6' w='6' p='0.5' color='brandSecondary.400' borderRadius='50%'></Icon></Text>
                         </Tooltip>
-                        <Tooltip hasArrow={true} placement='top' p='2' color='gray.300' bg='rgba(255,255,255,0.9)' borderRadius='md' fontSize='smaller' label='Отговаря бързо'>
+                        <Tooltip hasArrow={true} placement='top' p='2' color='gray.300' bg='rgba(255,255,255,1)' borderRadius='md' fontSize='smaller' label='Отговаря бързо'>
                             <Text as='span'><Icon as={MdQuickreply} h='6' w='6' p='0.5' borderRadius='50%'  color='gray.300'></Icon></Text>
                         </Tooltip>
                     </HStack>
                 </GridItem>
                 <GridItem display='flex' flexDirection='column' alignItems='center'>
-                    <Button size='sm' variant='solid' borderRadius='md' colorScheme='linkedin' onClick={onOpen} mb='4' justifyContent='space-between' w='100%'>
+                    <Button size='sm' variant='solid' borderRadius='md' onClick={onOpen} mb='4' justifyContent='space-between' w='100%'>
                         <Icon cursor='pointer' as={GoCalendar} h='4' w='4' mr='3'></Icon>
                         Запази час
                     </Button>
-                    <Button variant='outline' size='sm' borderRadius='md' colorScheme='linkedin' onClick={onOpen} w='100%'>Задай въпрос</Button>
+                    <Button variant='outline' size='sm' borderRadius='md' onClick={onOpen} w='100%'>Задай въпрос</Button>
                     
                 </GridItem>
             </Grid>

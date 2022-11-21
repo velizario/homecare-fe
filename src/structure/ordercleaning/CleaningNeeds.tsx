@@ -26,7 +26,7 @@ const CleaningNeeds :React.FC = () => {
 
     return (
         
-        <Container maxW='2xl' py='12' px='24' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgb(0 5 82 / 8%) 0px 7px 14px 0px'>
+        <Container py='12' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgb(0 5 82 / 8%) 0px 7px 14px 0px'>
             <Heading mb='8' fontSize='3xl' fontWeight='bold' textAlign='center'>Tell us about your cleaning needs</Heading>
             <Text fontSize='xs' textTransform='uppercase' mb='4' fontWeight='bold' letterSpacing='0.05rem'>Apartment size</Text>
             <NumberInput w='full' mb='10'>

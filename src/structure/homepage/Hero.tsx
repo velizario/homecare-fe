@@ -18,7 +18,7 @@ const Hero : React.FC = () => {
                     <NumberInput bg='white' rounded='100' display='flex' w='66%' position='relative' left='1px'>
                         <NumberInputField letterSpacing='widest' minH='100%' placeholder="Postcode" fontSize='xl' rounded='100' borderTopLeftRadius='0' borderBottomLeftRadius='0'/>
                     </NumberInput>
-                    <Button colorScheme='linkedin' position='absolute' right='4' top='2' bottom='2' w='12rem' h='auto' rounded='100' maxW='30%'>Finder, keepers!</Button>       
+                    <Button position='absolute' right='4' top='2' bottom='2' w='12rem' h='auto' rounded='100' maxW='30%'>Finder, keepers!</Button>       
                 </Flex>     
                 <Text color='blue.900' fontSize='sm' pt='6' letterSpacing='tight' fontWeight='medium'>✔️ Socially responsible home cleaning ✔️ Eco-lighthouse certified ✔️ No binding contract ✔️ 100% satisfaction guarantee ✔️ Easy and safe to book online</Text>
             </Box>
