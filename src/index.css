@@ -14,5 +14,9 @@ code {
 
 *, *::before, *::after {
   border-style: none;
-  
 }
+
+.react-datepicker__time-box, .react-datepicker__time-container {
+  width: 120px !important;
+}
+

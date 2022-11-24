@@ -1,23 +1,23 @@
 import { Container, Box, FormControl, Text, Grid, GridItem, HStack, Tag, TagCloseButton, TagLabel, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, useDisclosure, Divider } from "@chakra-ui/react";
 import React from "react";
 import Dropdown from "../../utils/Dropdown";
-import { PickerOptions } from "../../utils/Dropdown";
 import Footer from "../homepage/Footer";
 import Header from "../homepage/Header";
 import ProfileFull from "../Profile/ProfileFull";
 import ProfileCard from "../Profile/ProfileThumbnail";
 import { RiArrowLeftSLine } from 'react-icons/ri'
+import { Hours } from "../bookcleaning/CleaningRequirements";
 
-export const colorOptions:PickerOptions = [
-    { value: "blue", label: "Blue", color: "#0052CC" },
-    { value: "purple", label: "Purple", color: "#5243AA" },
-    { value: "red", label: "Red", color: "#FF5630" },
-    { value: "orange", label: "асдф сдф ас асд ас дф Orange", color: "#FF8B00" },
-    { value: "yellow", label: "Yellow", color: "#FFC400" },
-    { value: "green", label: "Green", color: "#36B37E" }
+export const colorOptions:Hours[] = [
+    { value: "blue", label: "Blue" },
+    { value: "purple", label: "Purple" },
+    { value: "red", label: "Red" },
+    { value: "orange", label: "асдф сдф ас асд ас дф Orange"},
+    { value: "yellow", label: "Yellow" },
+    { value: "green", label: "Green" }
   ];
 
-export const filterOptions:PickerOptions = [
+export const filterOptions:Hours[] = [
     { value: "Подразбиране", label: "Подразбиране" },
     { value: "Препоръчани", label: "Препоръчани" },
     { value: "Високо оценени", label: "Високо оценени" }
@@ -32,15 +32,15 @@ const SearchPage:React.FC = () => {
             <Container>
                 <Box display='flex' justifyContent='space-between' mb='4'>
                     <FormControl w='full' display='flex' gap='4' justifyContent='flex-start'>
-                        <Dropdown height='6' dropdownName='color' placeholderValue="Вид посещение" groupedOptions={colorOptions}/>
-                        <Dropdown height='6' dropdownName='color' placeholderValue="График" groupedOptions={colorOptions}/>
-                        <Dropdown height='6' dropdownName='color' placeholderValue="Район" groupedOptions={colorOptions}/>
-                        <Dropdown height='6' dropdownName='color' placeholderValue="Бюджет" groupedOptions={colorOptions}/>
-                        <Dropdown height='6' dropdownName='color' placeholderValue="Оценка" groupedOptions={colorOptions}/>
+                        <Dropdown height='10' dropdownName='color' placeholderValue="Вид посещение" groupedOptions={colorOptions}/>
+                        <Dropdown height='10' dropdownName='color' placeholderValue="График" groupedOptions={colorOptions}/>
+                        <Dropdown height='10' dropdownName='color' placeholderValue="Район" groupedOptions={colorOptions}/>
+                        <Dropdown height='10' dropdownName='color' placeholderValue="Бюджет" groupedOptions={colorOptions}/>
+                        <Dropdown height='10' dropdownName='color' placeholderValue="Оценка" groupedOptions={colorOptions}/>
                     </FormControl>
                     <Box display='flex' gap='2' alignItems='center'>
                         <Text w='min-content' whiteSpace='nowrap' color='gray.600'>Сортирай по:</Text>
-                        <Dropdown variant='unstyled' height='6' dropdownName='color' placeholderValue="Подразбиране" groupedOptions={filterOptions} defaultValue={[{ value: "Подразбиране", label: "Подразбиране" }]}/>
+                        <Dropdown variant='unstyled' border='none' height='12' dropdownName='color' placeholderValue="Подразбиране" groupedOptions={filterOptions} defaultValue={{ value: "Подразбиране", label: "Подразбиране" }}/>
                     </Box>
                 </Box>
                 <Box mb='10'>

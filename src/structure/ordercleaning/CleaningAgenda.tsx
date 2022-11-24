@@ -1,6 +1,7 @@
 import { Box, Checkbox, Container, FormControl, FormLabel, Grid, GridItem, Heading, Stack, Text } from "@chakra-ui/react"
 import { ChakraStylesConfig, Select } from "chakra-react-select";
-import Dropdown, { PickerOptions } from "../../utils/Dropdown";
+import Dropdown from "../../utils/Dropdown";
+import { Hours } from "../bookcleaning/CleaningRequirements";
 
 export const schedule = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -11,13 +12,13 @@ export const dayHours = [
 
 
 
-export const colorOptions:PickerOptions = [
-    { value: "blue", label: "Blue", color: "#0052CC" },
-    { value: "purple", label: "Purple", color: "#5243AA" },
-    { value: "red", label: "Red", color: "#FF5630" },
-    { value: "orange", label: "Orange", color: "#FF8B00" },
-    { value: "yellow", label: "Yellow", color: "#FFC400" },
-    { value: "green", label: "Green", color: "#36B37E" }
+export const colorOptions:Hours[] = [
+    { value: "blue", label: "Blue"},
+    { value: "purple", label: "Purple"},
+    { value: "red", label: "Red" },
+    { value: "orange", label: "Orange" },
+    { value: "yellow", label: "Yellow" },
+    { value: "green", label: "Green"}
   ];
 
 export const flavorOptions = [

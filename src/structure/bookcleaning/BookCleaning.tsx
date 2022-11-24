@@ -1,5 +1,5 @@
 import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
-import Tabulator from "../ordercleaning/Tabulator"
+import CleaningRequirements from "./CleaningRequirements"
 import ProfileFull from "../Profile/ProfileFull";
 
 const BookCleaning:React.FC = () => {
@@ -11,7 +11,7 @@ const BookCleaning:React.FC = () => {
                     <ProfileFull></ProfileFull>
                 </GridItem>
                 <GridItem colSpan={1}>
-                    <Tabulator></Tabulator>
+                    <CleaningRequirements></CleaningRequirements>
                 </GridItem>
             </Grid>
         </Container>
