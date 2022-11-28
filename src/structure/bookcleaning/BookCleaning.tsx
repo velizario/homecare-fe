@@ -1,10 +1,13 @@
 import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
 import CleaningRequirements from "./CleaningRequirements"
 import ProfileFull from "../Profile/ProfileFull";
+import Header from "../homepage/Header";
+import Footer from "../homepage/Footer";
 
 const BookCleaning:React.FC = () => {
     return (
-    <Box >
+    <>
+        <Header></Header>
         <Container>
             <Grid templateColumns={'1fr 1fr'} gap='20'>
                 <GridItem colSpan={1}>
@@ -15,7 +18,8 @@ const BookCleaning:React.FC = () => {
                 </GridItem>
             </Grid>
         </Container>
-    </Box>
+        <Footer></Footer>
+    </>
     )
 
 }

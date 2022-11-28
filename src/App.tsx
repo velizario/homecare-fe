@@ -5,21 +5,19 @@ import Homepage from './structure/homepage/Homepage';
 import OrderCleaningPage from './structure/ordercleaning/OrderCleaningPage';
 import ProfileFull from './structure/Profile/ProfileFull';
 import SearchPage from './structure/searchpage/SearchPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 function App() {
   return (
-    <>
-      {/* <Homepage></Homepage> */}
-      {/* <OrderCleaningPage></OrderCleaningPage>  */}
-      <Header></Header>
-      <BookCleaning></BookCleaning>
-      <Container w='4xl'>
-          <ProfileFull></ProfileFull>
-      </Container>
-      <OrderCleaningPage></OrderCleaningPage>
-      <SearchPage></SearchPage>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Homepage />} />
+        <Route path='bookcleaning' element={<BookCleaning/>} />
+        <Route path='ordercleaning' element={<OrderCleaningPage/>} />
+        <Route path='searchpage' element={<SearchPage/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

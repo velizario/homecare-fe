@@ -122,7 +122,7 @@ const Dropdown:React.FC<DropdownProps> = ( { groupedOptions, dropdownName, place
         console.log(value)
 
     return (
-        <Box position='relative' px='0'>
+        <Box position='relative' px='0' zIndex='10' >
             <Text height='0' visibility='hidden' px='3rem' fontSize='md' w='min-content'>{placeholderValue}</Text>
             <Select
                 isMulti={false}

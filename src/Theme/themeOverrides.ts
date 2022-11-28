@@ -1,23 +1,11 @@
 import { extendTheme, theme as base } from "@chakra-ui/react";
-import { inputAnatomy } from '@chakra-ui/anatomy'
-import { createMultiStyleConfigHelpers } from '@chakra-ui/react'
+import { inputTheme } from "./InputConfig";
+import { numberInputTheme } from "./InputNumberConfig";
+import * as themeColors from "./themeColors";
 
 
-// Start defining Input multipart component style , which is then injected in the theme
-const { definePartsStyle, defineMultiStyleConfig } =
-  createMultiStyleConfigHelpers(inputAnatomy.keys)
 
-const inputBaseStyle = definePartsStyle({
-  // define the part you're going to style
-  field: {
-    border: '1px solid',
-    borderColor: 'lightgray',
-    boxShadow: 'rgba(200,200,200,0.3) 0px 4px 10px',
-    height: '14',
-  },
-})
-const inputTheme = defineMultiStyleConfig({ variants: { outline : inputBaseStyle } })
-// End defining multipar component style
+
 
 const theme = extendTheme({
     styles: {
@@ -44,29 +32,9 @@ const theme = extendTheme({
     },
 
     colors: {
-      brandPrimary: {
-        100: "#c4e5fd",
-        200: "#97d2fb",
-        300: "#75c3fa",
-        400: "#4eb1f9",
-        500: "#26a0f7",
-        600: "#098dec",
-        700: "#0776c5",
-        800: "#065e9d",
-        900: "#044776",
-      },
+      brandPrimary: themeColors.brandPrimary,
 
-      brandSecondary: {
-        100: "#eccbd9",
-        200: "#e3b5c8",
-        300: "#d897b2",
-        400: "#cd799c",
-        500: "#c25b86",
-        600: "#b34271",
-        700: "#95375e",
-        800: "#772c4b",
-        900: "#592139",
-      }
+      brandSecondary: themeColors.brandSecondary
     },
   
     components: {
@@ -93,6 +61,8 @@ const theme = extendTheme({
       
       // multipart components are handled specifically
       Input: inputTheme,
+
+      NumberInput: numberInputTheme,
     }
 
 
