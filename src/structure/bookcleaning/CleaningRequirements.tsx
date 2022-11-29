@@ -23,6 +23,7 @@ import AddressForm from "./AddressForm";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import NumberInputElement from "./helpers/NumberInputElement";
+import ButtonRoute from "../../utils/ButtonRoute";
 
 
 type DatePickerButtonType = {
@@ -159,21 +160,20 @@ const CleaningNeeds :React.FC = () => {
             </Box>
             <Box mt='10' w='full' display='flex'  flexDir='column' >
                 <OrderHeading>Кога ще почистваме?</OrderHeading>                
-                <Flex justifyContent='space-between' gap='2' mb='2'>
-                    <Box w='65%' position='relative' minW='min-content'>
+                    <Box position='relative' mb='6' w='100%' >
                         <OrderLabel>Дата:</OrderLabel>
                         <Flex onClick={toggleDatePicker} alignItems='center' justifyContent='center' h='14' px='2'  py='3' borderRadius='lg' border={`1px solid ${selected ? '#26a0f7' : 'lightgray'}`} /* boxShadow='rgba(200,200,200,0.3) 0px 4px 10px' */ cursor='pointer'>
                             <Flex w='100%' alignItems='center' color={`${selected ? "black" : "gray.600"}`} justifyContent='space-between' px='1' fontSize='sm'>
-                                <Flex alignItems='center' letterSpacing={0.2}>
+                                <Flex alignItems='center' fontSize='md' letterSpacing={0.2}>
                                     <Icon cursor='pointer' as={GoCalendar} h='5' w='5' mr='2'></Icon>
-                                    {selected ? `${format(selected,'EEEE, d MMMM y', { locale: bg } )}` : "Изберете дата"}
+                                    {selected ? `${format(selected,'EEEE, d MMMM y', { locale: bg } )}` : <Text fontSize='sm'>Изберете дата</Text>}
                                 </Flex>
                                 <Icon color='gray.500' cursor='pointer' as={BiChevronDown} h='5' w='5' ></Icon>
                             </Flex>
                         </Flex>
-                        <Box  position='absolute' visibility={datePickerIsVisible ? 'visible' : 'hidden'} zIndex='10' transform='translateY(5px)'>
-                            <SlideFade in={datePickerIsVisible} offsetY='-10px'>
-                                <Box border='1px solid rgb(220,220,220)' bg='white' p='4'  borderRadius='md' boxShadow='rgb(0 5 82 / 10%) 0px 4px 10px -0px' mt='1'>
+                        <Box position='absolute' visibility={datePickerIsVisible ? 'visible' : 'hidden'} zIndex='100' transform='translateY(5px)' >
+                            <SlideFade in={datePickerIsVisible} offsetY='-10px' >
+                                <Box border='1px solid rgb(220,220,220)' bg='white' p='4' borderRadius='md' boxShadow='rgb(0 5 82 / 10%) 0px 4px 10px -0px' mt='1'>
                                     <DayPicker
                                     mode="single"
                                     selected={selected}
@@ -186,11 +186,10 @@ const CleaningNeeds :React.FC = () => {
                             </SlideFade>
                         </Box>
                     </Box>
-                    <Box w='35%' minW='min-content' letterSpacing={0.2} >
+                    <Box letterSpacing={0.2} w='100%'  mb='2'>
                         <OrderLabel>Час:</OrderLabel>
                         <Dropdown  value={selectedHour} onChange={handleHourChange} /* boxShadow='rgba(200,200,200,0.3) 0px 4px 10px' */ border={`1px solid ${selectedHour ? '#26a0f7' : 'lightgray'}`} height='14' dropdownName='color' placeholderValue="Изберете час" groupedOptions={groupedOptions}/>
                     </Box>
-                </Flex>
                 <Flex my='0' w='full' cursor='context-menu'> 
                 <Tooltip hasArrow={true} placement='top' arrowSize={12} p='4'  borderRadius='md' border='1px solid lightgray' fontSize='sm' fontWeight='normal' color='gray.700' bg='white' label='При периодични посещения, избраният ден от седмицата и месеца определят графика на посещения спрямо избраната честота.'>
                     <Text  display='flex' alignItems='center' gap='1' fontSize='sm' fontStyle='italic' as='span'><Icon as={GrCircleInformation} h='4' w='4'></Icon>Как се формира графикът на посещения?</Text>
@@ -201,7 +200,7 @@ const CleaningNeeds :React.FC = () => {
             <Flex w='full' mb='10' mt='1'>
                 <Checkbox size='md' whiteSpace='nowrap'><Text fontSize='sm' position='relative' left='-0.5'>Информирайте ме за статуса на заявката и по вайбър</Text></Checkbox>
             </Flex>
-            <Button size='lg' mb='2' borderRadius='md' w='full' boxShadow='md'>Изпрати заявка</Button>
+            <ButtonRoute size='lg' mb='2' borderRadius='3xl' w='full' boxShadow='md'>Изпрати заявка</ButtonRoute>
             <Flex my='3' mt='0' w='full' cursor='context-menu'> 
                 <Tooltip hasArrow={true} placement='top' arrowSize={12} p='4'  borderRadius='md' border='1px solid lightgray' fontSize='sm' fontWeight='normal' color='gray.700' bg='white' label='Доставчикът на услугата има един ден да се свърже с Вас за да потвърди или да уточните детайлите по услугата. Ако не получите отговор, заявката ще бъде анулирана и доставчикът ще получи негативна оценка. Ако не се стигне до изпълнение на услугата, имате право на оценка и коментар относно комуникацията с доставчика и основанието за отказване. Това се прави с цел да се осигури високо качество на услугата и бързи отговори на запитванията.'>
                     <Text  display='flex' alignItems='center' gap='1' fontSize='sm' fontStyle='italic' as='span'><Icon as={GrCircleInformation} h='4' w='4'></Icon>Как се обработват заявките?</Text>

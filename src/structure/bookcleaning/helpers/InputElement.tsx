@@ -11,7 +11,7 @@ const InputElement:React.FC<InputProps> = (props) => {
 
     return (
         <Input 
-        sx={{...props}}
+        {...props}
         letterSpacing={0.2}
         onChange={handleChange} 
         value={value} 

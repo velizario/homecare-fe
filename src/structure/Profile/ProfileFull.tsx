@@ -6,6 +6,7 @@ import { GrFacebookOption } from 'react-icons/gr'
 import { CiGlobe } from 'react-icons/ci'
 import messageicon  from "../../resources/messageicon.svg"
 import ProfileBadge from "./ProfileBadge";
+import ButtonRoute from "../../utils/ButtonRoute";
 
 
 
@@ -23,7 +24,8 @@ const ProfileFull:React.FC = ( ) => {
                             <Text mb='6' fontSize='xl' fontWeight='medium' >Велизар Максимов Стоянов</Text>
                             {/* <Image src={messageicon} alt="SVG as an im                         age" h='10' cursor='pointer' p='1' borderRadius='lg' bg='blackAlpha.100' _hover={{boxShadow: 'md', transition: '0.2s ease all'}}></Image> */}
                             <Text mb='6' fontSize='md'>Martí is a senior UI/UX designer based in New York. For the past several years, he's been designing digital products for the banking, hospitality, fashion, healthcare, pharmaceutical, automotive, and software industries.</Text>
-                            <Button size='md'  borderRadius='md' w='min-content' boxShadow='md'>Пишете ми</Button>
+                            <ButtonRoute size='md'  boxShadow='md'>Пишете ми</ButtonRoute>
+                        
                         </GridItem>
                     </Grid>
 
@@ -50,9 +52,6 @@ const ProfileFull:React.FC = ( ) => {
                                 <Icon cursor='pointer' as={AiOutlineInstagram} h='9' w='9'  p='1.5' borderRadius='50%' bg='blackAlpha.50' _hover={{color: 'black'}}></Icon>
                         </HStack>
                     </Box>
-
-                    {/* <Button size='md' w='52' minWidth='min-content' p='4' borderRadius='md' colorScheme='linkedin' boxShadow='md' mb='10'>Пишете ми</Button> */}
-
                     
                     <Box display='flex' rowGap='2' columnGap='2' flexWrap='wrap' mb='5' >
                         <Tag fontSize='xs' whiteSpace='nowrap' bg='#e1effe' color='blackAlpha.900' fontWeight='normal'>Абонаментна услуга</Tag>

@@ -5,6 +5,7 @@ import { ExternalLinkIcon } from '@chakra-ui/icons'
 import { AiOutlineLink, AiOutlineInstagram } from 'react-icons/ai'
 import { GrFacebookOption } from 'react-icons/gr'
 import { CiGlobe } from 'react-icons/ci'
+import ButtonRoute from "../../utils/ButtonRoute";
 // import wwwicon  from "../../resources/wwwicon.svg"
 
 
@@ -66,7 +67,7 @@ const ProfileFull:React.FC = () => {
                                     <Icon cursor='pointer' as={CiGlobe} h='5' w='5' _hover={{color: 'black'}}></Icon>
                                     <Icon cursor='pointer' as={AiOutlineInstagram} h='5' w='5' _hover={{color: 'black'}}></Icon>
                             </HStack>
-                            <Button size='sm' borderRadius='md' colorScheme='linkedin' w='min-content'>Свържете се с мен</Button>
+                            <ButtonRoute size='sm' borderRadius='md' colorScheme='linkedin' w='min-content'>Свържете се с мен</ButtonRoute>
                         </Box>
 
                     <Text fontSize='md' fontWeight='medium' mb='2'>Ревюта от клиенти</Text>

@@ -1,4 +1,5 @@
 import { Box, Container, Heading, Text, Image, Button } from "@chakra-ui/react"
+import ButtonRoute from "../../utils/ButtonRoute";
 
 
 const KeyMessages:React.FC = () => {
@@ -33,7 +34,7 @@ const KeyMessages:React.FC = () => {
             <Box w='50%' pl='14' pr='10' fontSize='lg' maxWidth='45rem'>
                 <Heading pb='6' textTransform='uppercase' fontSize='3xl' fontWeight='extrabold'>HELP US CLEAN UP THE CLEANING INDUSTRY!</Heading>
                 <Text pb='6'>Cleaners have a crucial job in our society, but are too often neglected. To thank the cleaners is a start, but now it’s time for us to pull together and make sure cleaners’ rights are taken care of!</Text>
-                <Button variant='link' color='black' textDecoration='underline' fontSize='large' textUnderlineOffset='0.35rem' _hover={{ color: "gray.500" }}>Find out how you can help, here.</Button>
+                <ButtonRoute variant='link' color='black' textDecoration='underline' fontSize='large' textUnderlineOffset='0.35rem' _hover={{ color: "gray.500" }}>Find out how you can help, here.</ButtonRoute>
             </Box>
 
         </Box>

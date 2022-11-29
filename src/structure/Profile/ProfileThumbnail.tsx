@@ -6,6 +6,7 @@ import ProfileFull from "./ProfileFull";
 import { GoCalendar } from 'react-icons/go'
 import { GiStarFormation, GiWisdom } from 'react-icons/gi'
 import { MdOutlineQuickreply, MdQuickreply } from 'react-icons/md'
+import ButtonRoute from "../../utils/ButtonRoute";
 
 
 const ProfileThumbnail:React.FC = () => {
@@ -32,7 +33,7 @@ const ProfileThumbnail:React.FC = () => {
                     </Box>
                 </GridItem>
                 <GridItem colSpan={1} display='flex' flexDirection='column' alignItems='flex-start'>
-                    <Button variant='link' onClick={onOpen} fontSize='lg' fontWeight='medium' mb='0.5'>Marti Bruno</Button>
+                    <ButtonRoute variant='link' onClick={onOpen} fontSize='lg' fontWeight='medium' mb='0.5'>Marti Bruno</ButtonRoute>
                     <Box display='flex' alignItems='center' justifyContent='flex-start' mb='6'>
                         <Text mr='1'  fontSize='sm' fontWeight='medium' color='gray.600' >4,1</Text>
                         <Ratings size='5'></Ratings>
@@ -54,11 +55,11 @@ const ProfileThumbnail:React.FC = () => {
                     </HStack>
                 </GridItem>
                 <GridItem display='flex' flexDirection='column' alignItems='center'>
-                    <Button size='sm' variant='solid' borderRadius='md' onClick={onOpen} mb='4' justifyContent='space-between' w='100%'>
+                    <ButtonRoute to='/bookcleaning' size='sm' variant='solid' borderRadius='md' onClick={onOpen} mb='4' justifyContent='space-between' w='100%'>
                         <Icon cursor='pointer' as={GoCalendar} h='4' w='4' mr='3'></Icon>
                         Запази час
-                    </Button>
-                    <Button variant='outline' size='sm' borderRadius='md' onClick={onOpen} w='100%'>Задай въпрос</Button>
+                    </ButtonRoute>
+                    <ButtonRoute variant='outline' size='sm' borderRadius='md' onClick={onOpen} w='100%'>Задай въпрос</ButtonRoute>
                     
                 </GridItem>
             </Grid>

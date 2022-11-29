@@ -1,7 +1,7 @@
-import { NumberInputField, NumberInputProps } from "@chakra-ui/react";
+import { NumberInput, NumberInputField, NumberInputFieldProps } from "@chakra-ui/react";
 import { useState } from "react";
 
-const NumberInputElement:React.FC<NumberInputProps> = (props) => {
+const NumberInputElement:React.FC<NumberInputFieldProps> = (props) => {
 
     const [value, setValue] = useState('');
 
@@ -10,8 +10,8 @@ const NumberInputElement:React.FC<NumberInputProps> = (props) => {
     }
 
     return (
-        <NumberInputField 
-        sx={{...props}}
+        <NumberInputField
+        {...props}
         letterSpacing={0.2}
         onChange={handleChange} 
         value={value} 
