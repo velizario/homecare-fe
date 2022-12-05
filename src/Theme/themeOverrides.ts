@@ -25,7 +25,7 @@ const theme = extendTheme({
         "*::placeholder": {
           color: "gray.400", //default
           fontWeight: 'normal',
-          fontSize: 'sm'
+          fontSize: 'md'
         },
       },
     },

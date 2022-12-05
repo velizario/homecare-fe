@@ -7,6 +7,8 @@ import ProfileFull from './structure/Profile/ProfileFull';
 import SearchPage from './structure/searchpage/SearchPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import OrderPlaced from './structure/bookcleaning/OrderPlaced';
+import AboutUsMain from './structure/about/AboutUsMain';
+import ServicesMain from './structure/services/ServicesMain';
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
         <Route path='ordercleaning' element={<OrderCleaningPage/>} />
         <Route path='searchpage' element={<SearchPage/>} />
         <Route path='orderplaced' element={<OrderPlaced/>} />
+        <Route path='services' element={<ServicesMain/>} />
+        <Route path='about' element={<AboutUsMain/>} />
       </Routes>
     </BrowserRouter>
   );
