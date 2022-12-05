@@ -24,6 +24,7 @@ import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import NumberInputElement from "./helpers/NumberInputElement";
 import ButtonRoute from "../../utils/ButtonRoute";
+import OrderPlaced from "./OrderPlaced";
 
 
 type DatePickerButtonType = {
@@ -200,7 +201,7 @@ const CleaningNeeds :React.FC = () => {
             <Flex w='full' mb='10' mt='1'>
                 <Checkbox size='md' whiteSpace='nowrap'><Text fontSize='sm' position='relative' left='-0.5'>Информирайте ме за статуса на заявката и по вайбър</Text></Checkbox>
             </Flex>
-            <ButtonRoute size='lg' mb='2' borderRadius='3xl' w='full' boxShadow='md'>Изпрати заявка</ButtonRoute>
+            <ButtonRoute to='/orderplaced' size='lg' mb='2' borderRadius='3xl' w='full' boxShadow='md'>Изпрати заявка</ButtonRoute>
             <Flex my='3' mt='0' w='full' cursor='context-menu'> 
                 <Tooltip hasArrow={true} placement='top' arrowSize={12} p='4'  borderRadius='md' border='1px solid lightgray' fontSize='sm' fontWeight='normal' color='gray.700' bg='white' label='Доставчикът на услугата има един ден да се свърже с Вас за да потвърди или да уточните детайлите по услугата. Ако не получите отговор, заявката ще бъде анулирана и доставчикът ще получи негативна оценка. Ако не се стигне до изпълнение на услугата, имате право на оценка и коментар относно комуникацията с доставчика и основанието за отказване. Това се прави с цел да се осигури високо качество на услугата и бързи отговори на запитванията.'>
                     <Text  display='flex' alignItems='center' gap='1' fontSize='sm' fontStyle='italic' as='span'><Icon as={GrCircleInformation} h='4' w='4'></Icon>Как се обработват заявките?</Text>

@@ -1,4 +1,5 @@
 export const brandPrimary = {
+    50: "#ebf6fe",
     100: "#c4e5fd",
     200: "#97d2fb",
     300: "#75c3fa",

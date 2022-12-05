@@ -6,6 +6,7 @@ import OrderCleaningPage from './structure/ordercleaning/OrderCleaningPage';
 import ProfileFull from './structure/Profile/ProfileFull';
 import SearchPage from './structure/searchpage/SearchPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import OrderPlaced from './structure/bookcleaning/OrderPlaced';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='bookcleaning' element={<BookCleaning/>} />
         <Route path='ordercleaning' element={<OrderCleaningPage/>} />
         <Route path='searchpage' element={<SearchPage/>} />
+        <Route path='orderplaced' element={<OrderPlaced/>} />
       </Routes>
     </BrowserRouter>
   );
