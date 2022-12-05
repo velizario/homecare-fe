@@ -37,15 +37,15 @@ const CleaningNeeds :React.FC = () => {
             </NumberInput>
             <Text fontSize='xs' textTransform='uppercase' mb='3' fontWeight='bold' letterSpacing='0.05rem'>How often should we clean?</Text>
             <Text mb='6'>With Freska you will get a regular cleaner!</Text>
-            <OrderItem dataId='1' active={schedule===1} onClick={chooseSchedule} >
+            <OrderItem data-id='1' active={schedule===1} onClick={chooseSchedule} >
                <Text fontSize='lg' fontWeight={schedule === 1 ? 'bolder' : 'normal'}>Every week</Text>                 
                <Text fontSize='lg' fontWeight='bolder'>469 kr/h</Text>
             </OrderItem>
-            <OrderItem dataId='2' active={schedule==2} onClick={chooseSchedule} >
+            <OrderItem data-id='2' active={schedule==2} onClick={chooseSchedule} >
                <Text fontSize='lg' fontWeight={schedule === 2 ? 'bolder' : 'normal'}>Every second week</Text>                 
                <Text fontSize='lg' fontWeight='bolder'>469 kr/h</Text>
             </OrderItem>
-            <OrderItem dataId='3' active={schedule===3} onClick={chooseSchedule} >
+            <OrderItem data-id='3' active={schedule===3} onClick={chooseSchedule} >
                <Text fontSize='lg' fontWeight={schedule === 3 ? 'bolder' : 'normal'}>Every fourth week</Text>                 
                <Text fontSize='lg' fontWeight='bolder'>469 kr/h</Text>
             </OrderItem>
@@ -60,7 +60,7 @@ const CleaningNeeds :React.FC = () => {
             </Box>
             <Box mt='10' w='full' display='flex' flexDir='column' alignItems='center'>
                 <Text fontSize='xs' textTransform='uppercase' fontWeight='bolder' mb='6'>Additional services</Text>
-                <OrderItem dataId='fridge' active={services.fridge === 1} onClick={chooseServices} >
+                <OrderItem data-id='fridge' active={services.fridge === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='lg' fontWeight={services.fridge === 1 ? 'bolder' : 'normal'}>Fridge</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -71,7 +71,7 @@ const CleaningNeeds :React.FC = () => {
                     </Box>
                 </OrderItem>
 
-                <OrderItem dataId='oven' active={services.oven === 1} onClick={chooseServices} >
+                <OrderItem data-id='oven' active={services.oven === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='lg' fontWeight={services.oven === 1 ? 'bolder' : 'normal'}>Oven</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -82,7 +82,7 @@ const CleaningNeeds :React.FC = () => {
                     </Box>
                 </OrderItem>
 
-                <OrderItem dataId='ironing' active={services.ironing === 1} onClick={chooseServices} >
+                <OrderItem data-id='ironing' active={services.ironing === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='lg' fontWeight={services.ironing === 1 ? 'bolder' : 'normal'}>Ironing</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 

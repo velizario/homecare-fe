@@ -6,8 +6,9 @@ export type CleaningServices = {
     ironing?: boolean;
 }
 
-export type PropsWithChildren = {
+export interface PropsWithChildren<T = void> {
     children?: React.ReactNode;
+    props?: T;
 }
 
 export type Client = {

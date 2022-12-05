@@ -1,4 +1,4 @@
-import { Box, Container, Heading, NumberInput, NumberInputField, Text, Image, Icon, Flex, Button, SlideFade, Checkbox, Tooltip } from "@chakra-ui/react";
+import { Box, Container, Heading,  Text, Image, Icon, Flex, SlideFade, Checkbox, Tooltip } from "@chakra-ui/react";
 import { MouseEventHandler, useState } from "react";
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,7 +24,6 @@ import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import NumberInputElement from "./helpers/NumberInputElement";
 import ButtonRoute from "../../utils/ButtonRoute";
-import OrderPlaced from "./OrderPlaced";
 
 
 type DatePickerButtonType = {
@@ -89,22 +88,19 @@ const CleaningNeeds :React.FC = () => {
                 <Heading fontSize='2xl' fontWeight='normal' textAlign='center' >Поръчай почистване</Heading>
             </Flex>
             <OrderHeading>Размер на дома / офиса</OrderHeading>
-            <NumberInput w='full' mb='10'>
-                <Box position='relative' w='full' display='flex' alignItems='center' justifyContent='center'>
-                    <NumberInputElement placeholder='Въведете площ...'/>
-                    <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
-                </Box>
-            </NumberInput>
+            <NumberInputElement placeholder='Въведете площ...' w='full' mb='10' display='flex' alignItems='center'>
+                <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
+            </NumberInputElement>
             <OrderHeading>Колко често ще са посещенията?</OrderHeading>
-            <OrderItem dataId='1' active={schedule===1} onClick={chooseSchedule} >
+            <OrderItem data-id='1' active={schedule===1} onClick={chooseSchedule} >
                <Text fontSize='md' fontWeight={schedule === 1 ? 'medium' : 'normal'}>Всяка седмица</Text>                 
                <Text fontSize='md' fontWeight={schedule === 1 ? 'medium' : 'normal'}>469 kr/h</Text>
             </OrderItem>
-            <OrderItem dataId='2' active={schedule==2} onClick={chooseSchedule} >
+            <OrderItem data-id='2' active={schedule==2} onClick={chooseSchedule} >
                <Text fontSize='md' fontWeight={schedule === 2 ? 'medium' : 'normal'}>Всяка втора седмица</Text>                 
                <Text fontSize='md' fontWeight={schedule === 2 ? 'medium' : 'normal'}>469 kr/h</Text>
             </OrderItem>
-            <OrderItem dataId='3' active={schedule===3} onClick={chooseSchedule} >
+            <OrderItem data-id='3' active={schedule===3} onClick={chooseSchedule} >
                <Text fontSize='md' fontWeight={schedule === 3 ? 'medium' : 'normal'}>Всяка четвърта седмица</Text>                 
                <Text fontSize='md' fontWeight={schedule === 3 ? 'medium' : 'normal'}>469 kr/h</Text>
             </OrderItem>
@@ -116,7 +112,7 @@ const CleaningNeeds :React.FC = () => {
             </RadioGroup>
             <Box mt='10' w='full' display='flex' flexDir='column' alignItems='center'>
                 <OrderHeading>Каква услуга желаете?</OrderHeading>
-                <OrderItem dataId='standard' active={true}>
+                <OrderItem data-id='standard' active={true}>
                     <Box>
                         <Text fontSize='md' fontWeight='medium'>Стандартно почистване</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -126,7 +122,7 @@ const CleaningNeeds :React.FC = () => {
                         <Icon position='absolute' right='-2' top='-1' visibility={services.standard === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
                     </Box>
                 </OrderItem>
-                <OrderItem dataId='fridge' active={services.fridge === 1} onClick={chooseServices} >
+                <OrderItem data-id='fridge' active={services.fridge === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='md' fontWeight={services.fridge === 1 ? 'medium' : 'normal'}>Почистване на хладилник</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -137,7 +133,7 @@ const CleaningNeeds :React.FC = () => {
                     </Box>
                 </OrderItem>
 
-                <OrderItem dataId='oven' active={services.oven === 1} onClick={chooseServices} >
+                <OrderItem data-id='oven' active={services.oven === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='md' fontWeight={services.oven === 1 ? 'medium' : 'normal'}>Почистване на печка</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -148,7 +144,7 @@ const CleaningNeeds :React.FC = () => {
                     </Box>
                 </OrderItem>
 
-                <OrderItem dataId='ironing' active={services.ironing === 1} onClick={chooseServices} >
+                <OrderItem data-id='ironing' active={services.ironing === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='md' fontWeight={services.ironing === 1 ? 'medium' : 'normal'}>Гладене</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 

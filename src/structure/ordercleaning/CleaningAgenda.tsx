@@ -72,7 +72,7 @@ const CleaningAgenda:React.FC = () => {
           </Box>
             {schedule.map(day => {
               return (
-                <Box w='full' mb='6'>
+                <Box key={day} w='full' mb='6'>
                   <Box display='flex' justifyContent='space-between' borderBottom='2px solid black' mb='2'>
                     <Text fontSize='sm' textTransform='uppercase'  fontWeight='bold' letterSpacing='0.05rem'>{day}</Text>
                     <Box display='flex' gap='4'>
@@ -85,7 +85,7 @@ const CleaningAgenda:React.FC = () => {
                   <Grid templateColumns='repeat(6, 1fr)' gap={3} mb='3'>
                     {dayHours.map(hour => {
                       return (
-                        <GridItem w='100%' h='10' cursor='pointer' _hover={{bg:'rgba(33, 37, 43, 0.04)'}} border='1px solid lightgray' borderRadius='md' boxShadow='0 4px 12px 0 rgb(0 0 0 / 8%)' display='flex' alignItems='center' justifyContent='center'>
+                        <GridItem key={hour} w='100%' h='10' cursor='pointer' _hover={{bg:'rgba(33, 37, 43, 0.04)'}} border='1px solid lightgray' borderRadius='md' boxShadow='0 4px 12px 0 rgb(0 0 0 / 8%)' display='flex' alignItems='center' justifyContent='center'>
                           <Text fontSize='md'>{hour}</Text>
                         </GridItem>
                       )

@@ -1,20 +1,30 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 import { MouseEventHandler } from "react";
 
-type OrderItemProps = {
-    children: React.ReactNode;
-    styles?: BoxProps;
-    onClick?: MouseEventHandler<HTMLDivElement>;
+interface OrderItemProps extends BoxProps {
     active: boolean;
-    dataId: string;
 }
 
-const OrderItem:React.FC<OrderItemProps> = ({ children, styles, onClick, active, dataId } ) => {
+const OrderItem:React.FC<OrderItemProps> = ({ children, active, ...props } ) => {
     return (
-        <Box tabIndex={0} data-id={dataId} onClick={onClick} w='full' h='20' mb='3' p='5' bg={`${active ? 'rgba(38,160,247,0.07)' : 'unset'}`} border={`1px solid ${active ? '#26a0f7' : 'lightgray'}`} borderRadius='lg' display='flex' alignItems='center' justifyContent='space-between' letterSpacing={0.2} cursor='pointer' _hover={{bg:'rgb(240, 241, 244)'}} {...styles}>
-        {/*  boxShadow={`0px 4px 10px ${active ? 'rgba(38, 160, 247, 0.2)' : 'rgba(200,200,200,0.3)'}`}   */}
-        {children}
-    </Box>
+        <Box 
+            tabIndex={0} 
+            w='full' 
+            h='20' 
+            mb='3' 
+            p='5' 
+            bg={`${active ? 'rgba(38,160,247,0.07)' : 'unset'}`} 
+            border={`1px solid ${active ? '#26a0f7' : 'lightgray'}`} 
+            borderRadius='lg' 
+            display='flex' 
+            alignItems='center' 
+            justifyContent='space-between' 
+            letterSpacing={0.2} 
+            cursor='pointer' 
+            _hover={{bg:'rgb(240, 241, 244)'}} 
+            {...props}>
+                {children}
+        </Box>
     )
 }
 

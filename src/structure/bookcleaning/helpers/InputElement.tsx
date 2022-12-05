@@ -4,14 +4,14 @@ import { useState } from "react";
 import { Client } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
-interface InputElementProps  {
+interface InputElementProps extends InputProps  {
     control: Control<Client, object>
     message: string | undefined
     label: string
     name: keyof Client
 }
 
-const InputElement:React.FC<InputProps & InputElementProps> = forwardRef<InputProps & InputElementProps, "input">((props, ref) => {
+const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">((props, ref) => {
 
     return (
 

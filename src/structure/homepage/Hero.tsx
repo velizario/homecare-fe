@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading, Image, NumberInput, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Image, NumberInput, NumberInputField, Text } from "@chakra-ui/react";
 import ButtonRoute from "../../utils/ButtonRoute";
 import NumberInputElement from "../bookcleaning/helpers/NumberInputElement";
 
@@ -13,13 +13,13 @@ const Hero : React.FC = () => {
                 <Text color='blue.900' fontSize='xl' pt='6' letterSpacing='tight' fontWeight='semibold'>Професионалните домашни помощници на Freska са обучени, наети и осигурени. С други думи, те имат реална работа! Проверете кога нашите доверени домашни помощници са налични във вашия район.</Text>
                 <Flex mt='6' h='20' position='relative'>
                     <NumberInput bg='white' rounded='100' display='flex' w='33%' borderTopRightRadius='0' borderBottomRightRadius='0' >
-                        <NumberInputElement bg='transparent' zIndex='5' letterSpacing='widest' minH='100%' placeholder="Площ" _placeholder={{fontSize: 'lg'}} fontSize='xl' rounded='100' borderTopRightRadius='0' borderBottomRightRadius='0' />
+                        <NumberInputField bg='transparent' zIndex='5' letterSpacing='widest' minH='100%' placeholder="Площ" _placeholder={{fontSize: 'lg'}} fontSize='xl' rounded='100' borderTopRightRadius='0' borderBottomRightRadius='0' />
                         <Box position= 'absolute' alignSelf='center' verticalAlign='center' right='3%'>
                             <Text color='gray.500' fontSize='xl' userSelect='none'>m²</Text>
                         </Box>
                     </NumberInput>
                     <NumberInput bg='white' rounded='100' display='flex' w='66%' position='relative' left='1px' >
-                        <NumberInputElement letterSpacing='widest' minH='100%' placeholder="Пощенски код" _placeholder={{fontSize: 'lg'}} fontSize='xl' rounded='100' borderTopLeftRadius='0' borderBottomLeftRadius='0'/>
+                        <NumberInputField letterSpacing='widest' minH='100%' placeholder="Пощенски код" _placeholder={{fontSize: 'lg'}} fontSize='xl' rounded='100' borderTopLeftRadius='0' borderBottomLeftRadius='0'/>
                     </NumberInput>
                     <ButtonRoute position='absolute' right='4' top='2' bottom='2' h='auto' rounded='100' maxW='30%'>Намери помощница</ButtonRoute>       
                 </Flex>  

@@ -119,7 +119,6 @@ const Dropdown:React.FC<DropdownProps> = ( { groupedOptions, dropdownName, place
 
         };
         
-        console.log(value)
 
     return (
         <Box position='relative' px='0' zIndex='10' >
