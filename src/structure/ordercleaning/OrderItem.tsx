@@ -23,7 +23,7 @@ const OrderItem:React.FC<OrderItemProps> = ({ children, active, ...props } ) => 
             cursor='pointer' 
             _hover={{bg:'rgb(240, 241, 244)'}} 
             {...props}>
-                {children}
+            {children}
         </Box>
     )
 }

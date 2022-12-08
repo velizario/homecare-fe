@@ -7,16 +7,24 @@ type UserStore = {
     updateClient: (client: Client) => void;
 }
 
+const defaultClient = {
+    firstName: "",
+    lastName: "",
+    address: "",
+    phone: "",
+}
+
 
 // Use Zustand
 
-const userStore = create<UserStore>((set) => ({
-    client: null,
+const userStore = create<UserStore>((set,get) => ({
+    client: defaultClient,
     updateClient: (client) => {
         set(state => ({
             ...state,
             client: client
-        }))
+        }));
+        console.log("State changed! New value", get().client)
     }
 }))
 

@@ -1,5 +1,5 @@
 import { Box, Container, Heading,  Text, Image, Icon, Flex, SlideFade, Checkbox, Tooltip } from "@chakra-ui/react";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import "react-datepicker/dist/react-datepicker.css";
 import { RiFridgeLine } from "react-icons/ri"
@@ -19,11 +19,16 @@ import { format } from 'date-fns'
 import { bg } from 'date-fns/locale'
 import Dropdown from "../../utils/Dropdown";
 import { ActionMeta, MultiValue, OptionBase, SingleValue } from "chakra-react-select";
-import AddressForm from "./AddressForm";
+import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
-import NumberInputElement from "./helpers/NumberInputElement";
+import { useForm } from "react-hook-form";
+import { CleaningServices, Client } from "../../utils/AppTypes";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup";
+import userStore from "../../store/userStore";
 import ButtonRoute from "../../utils/ButtonRoute";
+import { cleaningVariations, visitRecurrences } from "../../store/staticData";
 
 
 type DatePickerButtonType = {
@@ -50,9 +55,25 @@ const hours:Hours[] = [
     {label : "Преди обяд", options: hours}
   ]
 
+// form logic
+  const schema = yup.object({
+    area: yup.number().required("Въведете площ").typeError("Въведете площ").max(500, "Въведохте твърде голяма площ").positive("Въведете коректна площ"),
+    firstName: yup.string().required("Въведете име"),
+    lastName: yup.string().required("Въведете фамилия"),
+    phone: yup.number().positive().integer().required("Въведете номер").typeError("Въведете номер"),
+    address: yup.string().required("Въведете адрес"),
+    }).required()
+
+const clientDefault = {
+    firstName: "",
+    lastName: "",
+    address: "",
+    phone: "",
+}
+
 const CleaningNeeds :React.FC = () => {
     const [schedule, setSchedule] = useState(0);
-    const [services, setServices] = useState({standard: 1, fridge: 0, oven: 0, ironing: 0});
+    const [services, setServices] = useState<{[key in CleaningServices]: number}>({standard: 1, fridge: 0, oven: 0, ironing: 0});
     const [selected, setSelected] = useState<Date>();
     const [selectedHour, setSelectedHour] = useState<SingleValue<Hours> | MultiValue<Hours>>();
     const [datePickerIsVisible, setDatePickerIsVisible] = useState(false);
@@ -74,12 +95,31 @@ const CleaningNeeds :React.FC = () => {
         setSchedule(Number(event.currentTarget.dataset.id));
     }
 
+    // Not working!!!
     const chooseServices:MouseEventHandler<HTMLDivElement> = (event) => {
-        const serviceName = event.currentTarget.dataset.id as 'oven' | 'ironing' | 'fridge';
+        const serviceName = event.currentTarget.dataset.name as CleaningServices;
         setServices(services => {
             return {...services, [serviceName] : 1 - services[serviceName]}
         });
     }
+
+    
+
+
+    // Form logic
+
+    const { register, watch, handleSubmit, control} = useForm<Client>({
+        mode: 'onChange',
+        defaultValues: clientDefault,
+        resolver: yupResolver(schema)
+    });
+ 
+    useEffect(() => {
+        // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
+        const subscription = watch((value, { name }) => userStore.setState(state => ({client: {...state.client, [name!] : value[name!]}}), false ));
+        return () => subscription.unsubscribe();
+      }, []);
+  
 
     return (
         <Container maxW='lg' py='6' px='10' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgba(200,200,200,0.3) 0px 4px 10px -0px'>
@@ -88,41 +128,38 @@ const CleaningNeeds :React.FC = () => {
                 <Heading fontSize='2xl' fontWeight='normal' textAlign='center' >Поръчай почистване</Heading>
             </Flex>
             <OrderHeading>Размер на дома / офиса</OrderHeading>
-            <NumberInputElement placeholder='Въведете площ...' w='full' mb='10' display='flex' alignItems='center'>
+            <InputElement control={control} {...register("area")} placeholder='Въведете площ...' >
                 <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
-            </NumberInputElement>
+            </InputElement>
             <OrderHeading>Колко често ще са посещенията?</OrderHeading>
-            <OrderItem data-id='1' active={schedule===1} onClick={chooseSchedule} >
-               <Text fontSize='md' fontWeight={schedule === 1 ? 'medium' : 'normal'}>Всяка седмица</Text>                 
-               <Text fontSize='md' fontWeight={schedule === 1 ? 'medium' : 'normal'}>469 kr/h</Text>
-            </OrderItem>
-            <OrderItem data-id='2' active={schedule==2} onClick={chooseSchedule} >
-               <Text fontSize='md' fontWeight={schedule === 2 ? 'medium' : 'normal'}>Всяка втора седмица</Text>                 
-               <Text fontSize='md' fontWeight={schedule === 2 ? 'medium' : 'normal'}>469 kr/h</Text>
-            </OrderItem>
-            <OrderItem data-id='3' active={schedule===3} onClick={chooseSchedule} >
-               <Text fontSize='md' fontWeight={schedule === 3 ? 'medium' : 'normal'}>Всяка четвърта седмица</Text>                 
-               <Text fontSize='md' fontWeight={schedule === 3 ? 'medium' : 'normal'}>469 kr/h</Text>
-            </OrderItem>
-
-            <RadioGroup mt='4' mb='2' alignSelf='flex-start'  data-id='4' onChange={() => {setSchedule(4)}} value={schedule.toString()}>
-                <Radio value="4">
-                    <Text fontSize='md' fontWeight={schedule === 4 ? 'medium' : 'normal'}> Еднократно (559 kr/h)</Text>
-                </Radio>
-            </RadioGroup>
-            <Box mt='10' w='full' display='flex' flexDir='column' alignItems='center'>
-                <OrderHeading>Каква услуга желаете?</OrderHeading>
-                <OrderItem data-id='standard' active={true}>
+            {visitRecurrences.map(recurrence => {
+                return recurrence.name === "onetime" ? (
+                    <RadioGroup mt='4' mb='2' alignSelf='flex-start'  data-id={recurrence.id} onChange={() => {setSchedule(recurrence.id)}} value={schedule.toString()}>
+                        <Radio value="4">
+                            <Text fontSize='md' fontWeight={schedule === 4 ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text>
+                        </Radio>
+                    </RadioGroup>
+                ) : (
+                    <OrderItem key={recurrence.id} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} onClick={chooseSchedule} >
+                        <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.label}</Text>                 
+                        <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.price}</Text>
+                    </OrderItem>
+                )
+            })}
+            <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
+            {cleaningVariations.map(cleaningType => 
+                (<OrderItem key={cleaningType.id} data-id={cleaningType.id} data-name={cleaningType.name} active={services[cleaningType.name] === cleaningType.id} onClick={chooseServices}>
                     <Box>
-                        <Text fontSize='md' fontWeight='medium'>Стандартно почистване</Text>
-                        <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
+                        <Text fontSize='md' fontWeight='medium'>{cleaningType.label}</Text>
+                        <Text fontSize='sm' color='gray.400'>{cleaningType.time}</Text>                 
                     </Box>
                     <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
                         <Icon as={VscListOrdered} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services.standard === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
+                        <Icon position='absolute' right='-2' top='-1' visibility={services.standard === cleaningType.id ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
                     </Box>
-                </OrderItem>
-                <OrderItem data-id='fridge' active={services.fridge === 1} onClick={chooseServices} >
+                </OrderItem>)
+            )}
+                {/* <OrderItem data-id='fridge' active={services.fridge === 1} onClick={chooseServices} >
                     <Box>
                         <Text fontSize='md' fontWeight={services.fridge === 1 ? 'medium' : 'normal'}>Почистване на хладилник</Text>
                         <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
@@ -153,8 +190,9 @@ const CleaningNeeds :React.FC = () => {
                         <Icon as={MdOutlineIron} h='12' w='12'></Icon>
                         <Icon position='absolute' right='-2' top='-1' visibility={services.ironing === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
                     </Box>
-                </OrderItem>
-            </Box>
+                </OrderItem> */}
+
+
             <Box mt='10' w='full' display='flex'  flexDir='column' >
                 <OrderHeading>Кога ще почистваме?</OrderHeading>                
                     <Box position='relative' mb='6' w='100%' >
@@ -188,12 +226,20 @@ const CleaningNeeds :React.FC = () => {
                         <Dropdown  value={selectedHour} onChange={handleHourChange} /* boxShadow='rgba(200,200,200,0.3) 0px 4px 10px' */ border={`1px solid ${selectedHour ? '#26a0f7' : 'lightgray'}`} height='14' dropdownName='color' placeholderValue="Изберете час" groupedOptions={groupedOptions}/>
                     </Box>
                 <Flex my='0' w='full' cursor='context-menu'> 
-                <Tooltip hasArrow={true} placement='top' arrowSize={12} p='4'  borderRadius='md' border='1px solid lightgray' fontSize='sm' fontWeight='normal' color='gray.700' bg='white' label='При периодични посещения, избраният ден от седмицата и месеца определят графика на посещения спрямо избраната честота.'>
-                    <Text  display='flex' alignItems='center' gap='1' fontSize='sm' fontStyle='italic' as='span'><Icon as={GrCircleInformation} h='4' w='4'></Icon>Как се формира графикът на посещения?</Text>
-                </Tooltip>
-            </Flex>
+                    <Tooltip hasArrow={true} placement='top' arrowSize={12} p='4'  borderRadius='md' border='1px solid lightgray' fontSize='sm' fontWeight='normal' color='gray.700' bg='white' label='При периодични посещения, избраният ден от седмицата и месеца определят графика на посещения спрямо избраната честота.'>
+                        <Text  display='flex' alignItems='center' gap='1' fontSize='sm' fontStyle='italic' as='span'><Icon as={GrCircleInformation} h='4' w='4'></Icon>Как се формира графикът на посещения?</Text>
+                    </Tooltip>
+                </Flex>
             </Box>
-            <AddressForm/>
+            <Box mt='10' w='full' display='flex' flexDir='column'>
+                <OrderHeading>При кого ще почистваме?</OrderHeading>
+                <Flex gap='2'>
+                    <InputElement control={control} {...register("firstName")} label="Име:" placeholder='Име...' ></InputElement>
+                    <InputElement control={control} {...register("lastName")} label="Фамилия:" placeholder='Фамилия...' ></InputElement>
+                </Flex>
+                <InputElement control={control} {...register("address")} label="Адрес: (улица/блок, номер, вход, етаж, апартамент)" placeholder='Въведете адрес...' ></InputElement>
+                <InputElement control={control} {...register("phone")} label="Телефонен номер:" placeholder='Въведете номер...' ></InputElement>
+            </Box>
             <Flex w='full' mb='10' mt='1'>
                 <Checkbox size='md' whiteSpace='nowrap'><Text fontSize='sm' position='relative' left='-0.5'>Информирайте ме за статуса на заявката и по вайбър</Text></Checkbox>
             </Flex>

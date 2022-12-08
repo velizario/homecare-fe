@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { Client, Search } from '../utils/AppTypes'
+import { Search } from '../utils/AppTypes'
 
 // Define type
 type SearchStore = {

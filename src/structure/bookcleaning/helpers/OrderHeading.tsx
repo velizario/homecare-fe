@@ -1,14 +1,8 @@
-import { PropsWithChildren } from "../../../utils/AppTypes";
-import { Text } from "@chakra-ui/react";
+import { Text,TextProps } from "@chakra-ui/react";
 
-
-const OrderHeading:React.FC<PropsWithChildren> = ({children}) => {
-
-
-
+const OrderHeading:React.FC<TextProps> = ({children, ...props}) => {
     return (
-        
-    <Text fontSize='sm' textTransform='uppercase' mb='4' fontWeight='normal'  alignSelf='flex-start'>{children}</Text>
+    <Text {...props} fontSize='sm' textTransform='uppercase' mb='4' fontWeight='normal'  alignSelf='flex-start'>{children}</Text>
   )
 }
 

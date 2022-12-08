@@ -1,42 +1,54 @@
 import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage } from "@chakra-ui/react";
-import { Control, Controller } from "react-hook-form"
-import { useState } from "react";
+import { Control, Controller, useFormState } from "react-hook-form"
 import { Client } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
 interface InputElementProps extends InputProps  {
     control: Control<Client, object>
-    message: string | undefined
-    label: string
+    label?: string
     name: keyof Client
 }
 
-const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">((props, ref) => {
+const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">(({children, control, onChange, name, ...props}, ref) => {
 
+    // const handleChange = (value: string | undefined) => {
+    //     console.log("starting change")
+    //     userStore.setState({client: {[props.name] : value}})
+    //     console.log(userStore.getState().client)
+    // }
+
+    const { errors } = useFormState({control})
+    const errorMessage = errors[name]?.message
+ 
     return (
 
-        <FormControl isInvalid={props.message ? true : false} mb = '6'> 
+        <FormControl isInvalid={errorMessage ? true : false} mb = '6'> 
             <OrderLabel>{props.label}</OrderLabel>
             <Controller
-                control={props.control}
-                name={props.name}
+                control={control}
+                name={name}
                 render={({ field: { onChange, value}}) => 
-                    (<Input 
+                (
+                <Box position="relative" display='flex' alignItems='center'>
+                    <Input 
                         ref={ref}
                         {...props}
                         letterSpacing={0.2}
-                        // onChange={handleChange}
-                        // value={value} 
+                        onChange={onChange}
+                        value={value} 
                         h='14' 
                         zIndex='5' 
                         borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}
                         boxShadow='none'
-                        // boxShadow={`0px 4px 10px ${!!value ? 'rgba(38, 160, 247, 0.2)' : 'rgba(200,200,200,0.3)'}`}
-                    />)}
+                    >
+                    </Input>
+                    {children}
+                </Box>
+                )}
             />
             <Box h='3' mt='1'>
                 <FormErrorMessage mt='0'>
-                    {props.message}
+                    {errorMessage}
                 </FormErrorMessage>
             </Box>
         </FormControl>

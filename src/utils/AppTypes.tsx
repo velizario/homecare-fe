@@ -1,10 +1,6 @@
 export type CleanFreq =  'onetime' | 'weekly' | 'biWeekly' | 'quadWeekly' 
 
-export type CleaningServices = {
-    fridge? : boolean;
-    oven? : boolean;
-    ironing?: boolean;
-}
+export type CleaningServices = "standard" | "fridge" | "oven" | "ironing"
 
 export interface PropsWithChildren<T = void> {
     children?: React.ReactNode;
@@ -17,6 +13,7 @@ export type Client = {
     address?: string;
     phone?: string;
     id?: string;
+    area?: string;
 }
 
 export type Search = {
