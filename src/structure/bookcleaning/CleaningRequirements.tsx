@@ -98,16 +98,14 @@ const CleaningNeeds :React.FC = () => {
     // Not working!!!
     const chooseServices:MouseEventHandler<HTMLDivElement> = (event) => {
         const serviceName = event.currentTarget.dataset.name as CleaningServices;
+        console.log(serviceName)
         setServices(services => {
+            console.log({...services, [serviceName] : 1 - services[serviceName]})
             return {...services, [serviceName] : 1 - services[serviceName]}
         });
     }
 
-    
-
-
     // Form logic
-
     const { register, watch, handleSubmit, control} = useForm<Client>({
         mode: 'onChange',
         defaultValues: clientDefault,
@@ -134,13 +132,13 @@ const CleaningNeeds :React.FC = () => {
             <OrderHeading>Колко често ще са посещенията?</OrderHeading>
             {visitRecurrences.map(recurrence => {
                 return recurrence.name === "onetime" ? (
-                    <RadioGroup mt='4' mb='2' alignSelf='flex-start'  data-id={recurrence.id} onChange={() => {setSchedule(recurrence.id)}} value={schedule.toString()}>
+                    <RadioGroup key={recurrence.name} mt='4' mb='2' alignSelf='flex-start' data-id={recurrence.id} onChange={() => {setSchedule(recurrence.id)}} value={schedule.toString()}>
                         <Radio value="4">
                             <Text fontSize='md' fontWeight={schedule === 4 ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text>
                         </Radio>
                     </RadioGroup>
                 ) : (
-                    <OrderItem key={recurrence.id} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} onClick={chooseSchedule} >
+                    <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} onClick={chooseSchedule} >
                         <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.label}</Text>                 
                         <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.price}</Text>
                     </OrderItem>
@@ -148,14 +146,14 @@ const CleaningNeeds :React.FC = () => {
             })}
             <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
             {cleaningVariations.map(cleaningType => 
-                (<OrderItem key={cleaningType.id} data-id={cleaningType.id} data-name={cleaningType.name} active={services[cleaningType.name] === cleaningType.id} onClick={chooseServices}>
+                (<OrderItem key={cleaningType.name} data-id={cleaningType.id} data-name={cleaningType.name} active={services[cleaningType.name] === 1} onClick={chooseServices}>
                     <Box>
                         <Text fontSize='md' fontWeight='medium'>{cleaningType.label}</Text>
                         <Text fontSize='sm' color='gray.400'>{cleaningType.time}</Text>                 
                     </Box>
                     <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
-                        <Icon as={VscListOrdered} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services.standard === cleaningType.id ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
+                        <Icon as={cleaningType.icon} h='12' w='12'></Icon>
+                        <Icon position='absolute' right='-2' top='-1' visibility={services[cleaningType.name] === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
                     </Box>
                 </OrderItem>)
             )}
