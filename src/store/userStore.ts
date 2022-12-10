@@ -1,13 +1,13 @@
 import create from 'zustand'
-import { Client } from '../utils/AppTypes'
+import { User } from '../utils/AppTypes'
 
 // Define type
 type UserStore = {
-    client: Client | null;
-    updateClient: (client: Client) => void;
+    user: User | null;
+    updateUser: (user: User) => void;
 }
 
-const defaultClient = {
+const defaultUser = {
     firstName: "",
     lastName: "",
     address: "",
@@ -18,13 +18,13 @@ const defaultClient = {
 // Use Zustand
 
 const userStore = create<UserStore>((set,get) => ({
-    client: defaultClient,
-    updateClient: (client) => {
+    user: defaultUser,
+    updateUser: (user) => {
         set(state => ({
             ...state,
-            client: client
+            user: user
         }));
-        console.log("State changed! New value", get().client)
+        console.log("State changed! New value", get().user)
     }
 }))
 

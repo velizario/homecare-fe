@@ -3,9 +3,10 @@ import { MouseEventHandler } from "react";
 
 interface OrderItemProps extends BoxProps {
     active: boolean;
+    selectable: boolean
 }
 
-const OrderItem:React.FC<OrderItemProps> = ({ children, active, ...props } ) => {
+const OrderItem:React.FC<OrderItemProps> = ({ children, active, selectable, ...props } ) => {
     return (
         <Box 
             tabIndex={0} 
@@ -20,8 +21,8 @@ const OrderItem:React.FC<OrderItemProps> = ({ children, active, ...props } ) => 
             alignItems='center' 
             justifyContent='space-between' 
             letterSpacing={0.2} 
-            cursor='pointer' 
-            _hover={{bg:'rgb(240, 241, 244)'}} 
+            cursor={`${selectable ? 'pointer' : "default"}`}
+            _hover={{bg:`${selectable ? 'rgb(240, 241, 244)' : ""}`}} 
             {...props}>
             {children}
         </Box>

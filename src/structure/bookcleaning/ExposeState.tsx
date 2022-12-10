@@ -1,14 +1,14 @@
-import userStore from "../../store/userStore"
+import searchStore from "../../store/searchStore"
 
 const ExposeState:React.FC = () => {
 
-    const store = userStore()
+    const store = searchStore()
     console.log("I rerender (ExposeState)")
 
     return (
-        <>
-            {JSON.stringify(store.client)}
-        </>
+        <pre>
+            {JSON.stringify(store, null, 2)}
+        </pre>
     )
 }
 

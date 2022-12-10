@@ -7,22 +7,26 @@ export interface PropsWithChildren<T = void> {
     props?: T;
 }
 
-export type Client = {
-    firstName?: string;
-    lastName?: string;
-    address?: string;
-    phone?: string;
-    id?: string;
-    area?: string;
+export type User = {
+    firstName: string;
+    lastName: string;
+    address: string;
+    phone: string;
 }
 
-export type Search = {
-    appSize?: number;
-    frequency?: CleanFreq;
-    cleaningServices?: CleaningServices;
-    clientInfo?: Client;
-    viberSubscribe?: boolean;
-    date?: Date;
-    hour?: string;
+type UserKeys = {
+    [key in keyof User]: string
 }
 
+type CleaningServicesKeys = {
+    [key in CleaningServices] : boolean;
+}
+
+export interface FormArgs extends UserKeys {
+    cleaningArea: string;
+}
+
+export interface SearchStoreType extends FormArgs {
+    frequency: CleanFreq | undefined;
+    cleaningServices: CleaningServicesKeys
+};

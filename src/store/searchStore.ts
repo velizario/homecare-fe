@@ -1,22 +1,23 @@
 import create from 'zustand'
-import { Search } from '../utils/AppTypes'
+import {  SearchStoreType } from '../utils/AppTypes'
 
 // Define type
-type SearchStore = {
-    searchData : Search | null;
-    setSearchData : (data: Partial<Search>) => void;
-}
 
 // Use Zustand
 
-const searchStore = create<SearchStore>((set) => ({
-    searchData: null,
-    setSearchData: ((data) => {
-        set(state => ({
-            ...state,
-            searchData: {...state.searchData, ...data}
-        }))
-    })
+const searchStore = create<SearchStoreType>(() => ({
+    cleaningArea: "",
+    firstName: "string",
+    lastName: "string",
+    address: "string",
+    phone: "string",
+    frequency: undefined,
+    cleaningServices : {
+        standard: true,
+        fridge: false,
+        oven: false,
+        ironing: false,
+    }
 }))
 
 export default searchStore;

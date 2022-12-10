@@ -1,76 +1,91 @@
 import { CleaningServices } from "../utils/AppTypes";
-import { VscListOrdered } from "react-icons/vsc";
 import { IconType } from "react-icons";
 import { RiFridgeLine } from "react-icons/ri";
-import ovenIcon  from "../../resources/ovenIcon.svg"
-import { MdMicrowave, MdOutlineIron, MdList, MdOutlineCleanHands } from "react-icons/md";
-import { MdOutlineMicrowave } from "react-icons/md";
+import { MdMicrowave, MdOutlineIron, MdOutlineCleanHands } from "react-icons/md";
+
+export type VisitRecurrencesTypes ={
+    id: number;
+    name: string;
+    label: string;
+    price: string;
+    selectable: boolean;
+}[]
+
+export type cleaningVariationsTypes = {
+    id: number;
+    name: CleaningServices;
+    label: string;
+    time: string;
+    icon: IconType;
+    selectable: boolean
+}[]
+
 
 export const visitRecurrences = [
     {   
         id: 1,
         name : "weekly",
         label: "Всяка седмица",
-        price: "469 лв/ч"
+        price: "469 лв/ч",
+        selectable: true
     },
 
     {
         id: 2,
         name : "biWeekly",
         label: "Всяка втора седмица",
-        price: "369 лв/ч"
+        price: "369 лв/ч",
+        selectable: true
     },
 
     {
         id: 3,
         name : "quadWeekly",
         label: "Всяка четвърта седмица",
-        price: "269 лв/ч"
+        price: "269 лв/ч",
+        selectable: true
     },
 
     {
         id: 4,
         name: "onetime",
         label: "Еднократно",
-        price: "569 лв/ч"
+        price: "569 лв/ч",
+        selectable: true
     }
 ]
-
-type cleaningVariationsTypes = {
-    id: number;
-    name: CleaningServices;
-    label: string;
-    time: string;
-    icon: IconType
-}[]
 
 export const cleaningVariations:cleaningVariationsTypes = [
     {
         id: 1,
         name: "standard",
         label: "Стандартно почистване",
-        time: "+30 мин",
+        time: "2 часа",
         icon: MdOutlineCleanHands,
+        selectable: false
     },
     {
         id: 2,
         name: "fridge",
         label: "Почистване на хладилник",
         time: "+30 мин",
-        icon: RiFridgeLine
+        icon: RiFridgeLine,
+        selectable: true
     },
     {
         id: 3,
         name: "oven",
         label: "Почистване на печка",
         time: "+30 мин",
-        icon: MdMicrowave
+        icon: MdMicrowave,
+        selectable: true
     },
     {
         id: 4,
         name: "ironing",
         label: "Гладене",
         time: "+30 мин",
-        icon: MdOutlineIron
+        icon: MdOutlineIron,
+        selectable: true
     }
 ]

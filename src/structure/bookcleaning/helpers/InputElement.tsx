@@ -1,12 +1,12 @@
 import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage } from "@chakra-ui/react";
-import { Control, Controller, useFormState } from "react-hook-form"
-import { Client } from "../../../utils/AppTypes";
+import { Control, Controller, useFormState, FieldValues } from "react-hook-form"
+import { FormArgs } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
 interface InputElementProps extends InputProps  {
-    control: Control<Client, object>
-    label?: string
-    name: keyof Client
+    control: Control<FormArgs, object>;
+    label?: string;
+    name: keyof FormArgs;
 }
 
 const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">(({children, control, onChange, name, ...props}, ref) => {
@@ -35,7 +35,7 @@ const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}
-                        value={value} 
+                        value={value}
                         h='14' 
                         zIndex='5' 
                         borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}

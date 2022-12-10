@@ -2,16 +2,11 @@ import { Box, Container, Heading,  Text, Image, Icon, Flex, SlideFade, Checkbox,
 import { MouseEventHandler, useEffect, useState } from "react";
 import { Radio, RadioGroup } from '@chakra-ui/react'
 import "react-datepicker/dist/react-datepicker.css";
-import { RiFridgeLine } from "react-icons/ri"
-import { MdOutlineIron } from "react-icons/md"
 import { FaCheckCircle } from "react-icons/fa"
 import { GrCircleInformation } from "react-icons/gr"
 import { BiChevronDown } from "react-icons/bi"
-import ovenIcon  from "../../resources/ovenIcon.svg"
 import OrderItem from "../ordercleaning/OrderItem";
 import { GoCalendar } from "react-icons/go";
-import { WiTime3 } from "react-icons/wi";
-import { VscListOrdered } from "react-icons/vsc";
 import { DateBefore, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import startOfTomorrow from 'date-fns/startOfTomorrow'
@@ -23,12 +18,14 @@ import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import { useForm } from "react-hook-form";
-import { CleaningServices, Client } from "../../utils/AppTypes";
+import { CleaningServices, FormArgs } from "../../utils/AppTypes";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
-import userStore from "../../store/userStore";
 import ButtonRoute from "../../utils/ButtonRoute";
 import { cleaningVariations, visitRecurrences } from "../../store/staticData";
+import searchStore from "../../store/searchStore";
+import ExposeState from "./ExposeState";
+import shallow from 'zustand'
 
 
 type DatePickerButtonType = {
@@ -64,7 +61,8 @@ const hours:Hours[] = [
     address: yup.string().required("Въведете адрес"),
     }).required()
 
-const clientDefault = {
+const clientDefault:FormArgs = {
+    cleaningArea: "",
     firstName: "",
     lastName: "",
     address: "",
@@ -72,6 +70,10 @@ const clientDefault = {
 }
 
 const CleaningNeeds :React.FC = () => {
+
+    // User immer for object copy or implement get in the state.... fuck
+    const { service } = searchStore(state => ({state.cleaningServices}), shallow)
+
     const [schedule, setSchedule] = useState(0);
     const [services, setServices] = useState<{[key in CleaningServices]: number}>({standard: 1, fridge: 0, oven: 0, ironing: 0});
     const [selected, setSelected] = useState<Date>();
@@ -98,99 +100,66 @@ const CleaningNeeds :React.FC = () => {
     // Not working!!!
     const chooseServices:MouseEventHandler<HTMLDivElement> = (event) => {
         const serviceName = event.currentTarget.dataset.name as CleaningServices;
-        console.log(serviceName)
-        setServices(services => {
-            console.log({...services, [serviceName] : 1 - services[serviceName]})
-            return {...services, [serviceName] : 1 - services[serviceName]}
-        });
+        setServices(services => ({...services, [serviceName] : 1 - services[serviceName]}));
     }
 
     // Form logic
-    const { register, watch, handleSubmit, control} = useForm<Client>({
+    const { register, watch, handleSubmit, control} = useForm<FormArgs>({
         mode: 'onChange',
         defaultValues: clientDefault,
         resolver: yupResolver(schema)
     });
  
+    const updateCleaningServicesState = (service: CleaningServices) => {
+        searchStore.setState((state) => ({cleaningServices : {...state.cleaningServices, [service]: !state.cleaningServices[service]}}));
+    }
+
     useEffect(() => {
         // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
-        const subscription = watch((value, { name }) => userStore.setState(state => ({client: {...state.client, [name!] : value[name!]}}), false ));
+        const subscription = watch((data, { name }) => (name && searchStore.setState((state) =>  ({[name] : data[name]}), false)));
         return () => subscription.unsubscribe();
       }, []);
   
 
     return (
         <Container maxW='lg' py='6' px='10' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgba(200,200,200,0.3) 0px 4px 10px -0px'>
+            <ExposeState/>
             <Flex mb='7' alignItems='center' justifyContent='center'>
                 <Icon cursor='pointer' as={GoCalendar} h='7' w='7' mr='3'></Icon>
                 <Heading fontSize='2xl' fontWeight='normal' textAlign='center' >Поръчай почистване</Heading>
             </Flex>
             <OrderHeading>Размер на дома / офиса</OrderHeading>
-            <InputElement control={control} {...register("area")} placeholder='Въведете площ...' >
+            <InputElement control={control} {...register("cleaningArea")}  placeholder='Въведете площ...' >
                 <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
             </InputElement>
             <OrderHeading>Колко често ще са посещенията?</OrderHeading>
             {visitRecurrences.map(recurrence => {
                 return recurrence.name === "onetime" ? (
                     <RadioGroup key={recurrence.name} mt='4' mb='2' alignSelf='flex-start' data-id={recurrence.id} onChange={() => {setSchedule(recurrence.id)}} value={schedule.toString()}>
-                        <Radio value="4">
+                        <Radio isFocusable={false} value="4">
                             <Text fontSize='md' fontWeight={schedule === 4 ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text>
                         </Radio>
                     </RadioGroup>
                 ) : (
-                    <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} onClick={chooseSchedule} >
+                    <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} selectable={recurrence.selectable} onClick={recurrence.selectable ? chooseSchedule : undefined} >
                         <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.label}</Text>                 
                         <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.price}</Text>
                     </OrderItem>
                 )
             })}
             <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
-            {cleaningVariations.map(cleaningType => 
-                (<OrderItem key={cleaningType.name} data-id={cleaningType.id} data-name={cleaningType.name} active={services[cleaningType.name] === 1} onClick={chooseServices}>
+            {cleaningVariations.map(cleaningType => {
+                return <OrderItem key={cleaningType.name} data-id={cleaningType.id} data-name={cleaningType.name} active={searchStore.getState()[cleaningType.name] || false} selectable={cleaningType.selectable} onClick={cleaningType.selectable ? () => updateCleaningServicesState(cleaningType.name) : undefined}>
                     <Box>
                         <Text fontSize='md' fontWeight='medium'>{cleaningType.label}</Text>
                         <Text fontSize='sm' color='gray.400'>{cleaningType.time}</Text>                 
                     </Box>
                     <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
                         <Icon as={cleaningType.icon} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services[cleaningType.name] === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
-                    </Box>
-                </OrderItem>)
+                        <Icon position='absolute' right='-2' top='-1' visibility={searchStore.getState()[cleaningType.name] ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>                    </Box>
+                </OrderItem>}
             )}
-                {/* <OrderItem data-id='fridge' active={services.fridge === 1} onClick={chooseServices} >
-                    <Box>
-                        <Text fontSize='md' fontWeight={services.fridge === 1 ? 'medium' : 'normal'}>Почистване на хладилник</Text>
-                        <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
-                    </Box>
-                    <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
-                        <Icon as={RiFridgeLine} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services.fridge === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
-                    </Box>
-                </OrderItem>
-
-                <OrderItem data-id='oven' active={services.oven === 1} onClick={chooseServices} >
-                    <Box>
-                        <Text fontSize='md' fontWeight={services.oven === 1 ? 'medium' : 'normal'}>Почистване на печка</Text>
-                        <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
-                    </Box>                
-                    <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
-                        <Image src={ovenIcon} alt="SVG as an image" h='12'></Image>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services.oven === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
-                    </Box>
-                </OrderItem>
-
-                <OrderItem data-id='ironing' active={services.ironing === 1} onClick={chooseServices} >
-                    <Box>
-                        <Text fontSize='md' fontWeight={services.ironing === 1 ? 'medium' : 'normal'}>Гладене</Text>
-                        <Text fontSize='sm' color='gray.400'>+30 min</Text>                 
-                    </Box>               
-                    <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
-                        <Icon as={MdOutlineIron} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={services.ironing === 1 ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>
-                    </Box>
-                </OrderItem> */}
-
-
+                
             <Box mt='10' w='full' display='flex'  flexDir='column' >
                 <OrderHeading>Кога ще почистваме?</OrderHeading>                
                     <Box position='relative' mb='6' w='100%' >
