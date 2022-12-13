@@ -1,11 +1,11 @@
-import { CleaningServices } from "../utils/AppTypes";
+import { CleanFreq, CleaningServices } from "../utils/AppTypes";
 import { IconType } from "react-icons";
 import { RiFridgeLine } from "react-icons/ri";
 import { MdMicrowave, MdOutlineIron, MdOutlineCleanHands } from "react-icons/md";
 
 export type VisitRecurrencesTypes ={
     id: number;
-    name: string;
+    name: CleanFreq;
     label: string;
     price: string;
     selectable: boolean;
@@ -21,7 +21,7 @@ export type cleaningVariationsTypes = {
 }[]
 
 
-export const visitRecurrences = [
+export const visitRecurrences:VisitRecurrencesTypes = [
     {   
         id: 1,
         name : "weekly",

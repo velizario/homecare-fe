@@ -28,5 +28,9 @@ export interface FormArgs extends UserKeys {
 
 export interface SearchStoreType extends FormArgs {
     frequency: CleanFreq | undefined;
-    cleaningServices: CleaningServicesKeys
+    cleaningServices: CleaningServicesKeys;
+    toggleService: (service: CleaningServices) => void
+    getService: (service: CleaningServices) => boolean
+    setFrequency: (freq: CleanFreq) => void
+    getFrequency: () => CleanFreq | undefined
 };

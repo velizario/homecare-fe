@@ -25,7 +25,7 @@ import ButtonRoute from "../../utils/ButtonRoute";
 import { cleaningVariations, visitRecurrences } from "../../store/staticData";
 import searchStore from "../../store/searchStore";
 import ExposeState from "./ExposeState";
-import shallow from 'zustand'
+import shallow from 'zustand/shallow'
 
 
 type DatePickerButtonType = {
@@ -72,10 +72,14 @@ const clientDefault:FormArgs = {
 const CleaningNeeds :React.FC = () => {
 
     // User immer for object copy or implement get in the state.... fuck
-    const { service } = searchStore(state => ({state.cleaningServices}), shallow)
+    const { services } = searchStore(state => ({services: state.cleaningServices}), shallow)
+    const toggleService = searchStore (state => state.toggleService)
+    const getService = searchStore (state => state.getService)
+    const setFrequency = searchStore (state => state.setFrequency)
+    const frequency = searchStore (state => state.frequency)
 
-    const [schedule, setSchedule] = useState(0);
-    const [services, setServices] = useState<{[key in CleaningServices]: number}>({standard: 1, fridge: 0, oven: 0, ironing: 0});
+    // const [schedule, setSchedule] = useState(0);
+    // const [services, setServices] = useState<{[key in CleaningServices]: number}>({standard: 1, fridge: 0, oven: 0, ironing: 0});
     const [selected, setSelected] = useState<Date>();
     const [selectedHour, setSelectedHour] = useState<SingleValue<Hours> | MultiValue<Hours>>();
     const [datePickerIsVisible, setDatePickerIsVisible] = useState(false);
@@ -92,15 +96,12 @@ const CleaningNeeds :React.FC = () => {
         setSelectedHour({...adjustedValue, label: `${adjustedValue.label} часа`})
     }
 
-    const chooseSchedule:MouseEventHandler<HTMLDivElement> = (event) => {
-        console.log('schedule set to', event.currentTarget)
-        setSchedule(Number(event.currentTarget.dataset.id));
-    }
+
 
     // Not working!!!
     const chooseServices:MouseEventHandler<HTMLDivElement> = (event) => {
         const serviceName = event.currentTarget.dataset.name as CleaningServices;
-        setServices(services => ({...services, [serviceName] : 1 - services[serviceName]}));
+        toggleService(serviceName);
     }
 
     // Form logic
@@ -134,29 +135,30 @@ const CleaningNeeds :React.FC = () => {
             </InputElement>
             <OrderHeading>Колко често ще са посещенията?</OrderHeading>
             {visitRecurrences.map(recurrence => {
+     
                 return recurrence.name === "onetime" ? (
-                    <RadioGroup key={recurrence.name} mt='4' mb='2' alignSelf='flex-start' data-id={recurrence.id} onChange={() => {setSchedule(recurrence.id)}} value={schedule.toString()}>
+                    <RadioGroup key={recurrence.name} mt='4' mb='2' alignSelf='flex-start' data-id={recurrence.id} onChange={() => {setFrequency(recurrence.name)}} value={frequency}>
                         <Radio isFocusable={false} value="4">
-                            <Text fontSize='md' fontWeight={schedule === 4 ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text>
+                            <Text fontSize='md' fontWeight={frequency === recurrence.name ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text>
                         </Radio>
                     </RadioGroup>
                 ) : (
-                    <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={schedule===recurrence.id} selectable={recurrence.selectable} onClick={recurrence.selectable ? chooseSchedule : undefined} >
-                        <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.label}</Text>                 
-                        <Text fontSize='md' fontWeight={schedule === recurrence.id ? 'medium' : 'normal'}>{recurrence.price}</Text>
+                    <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={frequency===recurrence.name} selectable={recurrence.selectable} onClick={recurrence.selectable ? () => setFrequency(recurrence.name) : undefined} >
+                        <Text fontSize='md' fontWeight={frequency === recurrence.name ? 'medium' : 'normal'}>{recurrence.label}</Text>                 
+                        <Text fontSize='md' fontWeight={frequency === recurrence.name ? 'medium' : 'normal'}>{recurrence.price}</Text>
                     </OrderItem>
                 )
             })}
             <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
             {cleaningVariations.map(cleaningType => {
-                return <OrderItem key={cleaningType.name} data-id={cleaningType.id} data-name={cleaningType.name} active={searchStore.getState()[cleaningType.name] || false} selectable={cleaningType.selectable} onClick={cleaningType.selectable ? () => updateCleaningServicesState(cleaningType.name) : undefined}>
+                return <OrderItem key={cleaningType.name} data-id={cleaningType.id} data-name={cleaningType.name} active={getService(cleaningType.name) || false} selectable={cleaningType.selectable} onClick={cleaningType.selectable ? () => updateCleaningServicesState(cleaningType.name) : undefined}>
                     <Box>
                         <Text fontSize='md' fontWeight='medium'>{cleaningType.label}</Text>
                         <Text fontSize='sm' color='gray.400'>{cleaningType.time}</Text>                 
                     </Box>
                     <Box position='relative' p='2.5' borderRadius='xl' bg='cyan.100' display='flex'>
                         <Icon as={cleaningType.icon} h='12' w='12'></Icon>
-                        <Icon position='absolute' right='-2' top='-1' visibility={searchStore.getState()[cleaningType.name] ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>                    </Box>
+                        <Icon position='absolute' right='-2' top='-1' visibility={getService(cleaningType.name) ? 'visible' : 'hidden'} as={FaCheckCircle} h='6' w='6' bg='white' borderRadius='50%'></Icon>                    </Box>
                 </OrderItem>}
             )}
                 
