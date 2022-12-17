@@ -18,7 +18,7 @@ function App() {
         <Route index element={<Homepage />} />
         <Route path='bookcleaning' element={<BookCleaning/>} />
         <Route path='ordercleaning' element={<OrderCleaningPage/>} />
-        <Route path='searchpage' element={<SearchPage/>} />
+        <Route path='search' element={<SearchPage/>} />
         <Route path='orderplaced' element={<OrderPlaced/>} />
         <Route path='services' element={<ServicesMain/>} />
         <Route path='about' element={<AboutUsMain/>} />

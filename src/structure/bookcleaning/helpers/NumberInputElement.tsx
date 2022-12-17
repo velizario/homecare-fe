@@ -29,7 +29,7 @@ const NumberInputElement:React.FC<NumberInputElementProps> = ({children,  placeh
                         placeholder={placeholder}
                         letterSpacing={0.2}
                         onChange={onChange} 
-                        value={value} 
+                        value={value?.toString()} 
                         borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}
                     />
                     {children}

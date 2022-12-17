@@ -35,7 +35,7 @@ const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}
-                        value={value}
+                        value={value?.toString()}
                         h='14' 
                         zIndex='5' 
                         borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}

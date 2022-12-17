@@ -1,0 +1,14 @@
+/* Radio buttons as selection component */
+
+.radioSelections :global .chakra-radio__label {
+    margin: 0;
+    width: 100%
+  }
+  
+.radioSelections :global .chakra-radio__control {
+    display: none;
+  }
+  
+.radioSelections :global .chakra-radio {
+    width: 100%
+  }

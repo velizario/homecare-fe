@@ -24,11 +24,14 @@ type CleaningServicesKeys = {
 
 export interface FormArgs extends UserKeys {
     cleaningArea: string;
-}
-
-export interface SearchStoreType extends FormArgs {
+    date: Date | undefined;
+    hour: string;
     frequency: CleanFreq | undefined;
     cleaningServices: CleaningServicesKeys;
+    viberContactEnabled: boolean;
+}
+
+export interface bookCleaningStoreType extends FormArgs {
     toggleService: (service: CleaningServices) => void
     getService: (service: CleaningServices) => boolean
     setFrequency: (freq: CleanFreq) => void

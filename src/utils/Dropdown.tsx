@@ -1,13 +1,9 @@
 import { Box, Text, keyframes } from "@chakra-ui/react";
-import { ActionMeta, ChakraStylesConfig, Select, chakraComponents, GroupBase, SingleValue, MultiValue } from "chakra-react-select";
+import { ActionMeta, ChakraStylesConfig, Select, GroupBase, SingleValue, MultiValue } from "chakra-react-select";
 import React from "react";
-import { SelectComponents } from "react-select/dist/declarations/src/components";
+// import { SelectComponents } from "react-select/dist/declarations/src/components";
 import { Hours } from "../structure/bookcleaning/CleaningRequirements";
 
-
-
-
-type MyOption = {label: string, value: number}
 
 type DropdownProps = {
     groupedOptions: {
@@ -21,7 +17,7 @@ type DropdownProps = {
     defaultValue?: Hours;
     border?: string;
     boxShadow?: string;
-    value?: SingleValue<Hours> | MultiValue<Hours>;
+    value?: Hours | Hours[];
     onChange?: (newValue: Hours | null, actionMeta: ActionMeta<Hours>) => void;
 }
 
@@ -29,17 +25,7 @@ type customComponentsProps = {
     children: React.ReactNode,
 }
 
-// const customComponents:Partial<SelectComponents<Hours, boolean, GroupBase<Hours>>> | undefined = {
-//     Option: ({ children , ...props }) => (
-//       <chakraComponents.Option {...props}>
-//         {children} sdgf
-//       </chakraComponents.Option>
-//     ),
-//   };
-
-
 const Dropdown:React.FC<DropdownProps> = ( { groupedOptions, dropdownName, placeholderValue, height, variant='outline', defaultValue, border, boxShadow, value, onChange } ) => {
-
     const sunrise = keyframes`
     from {
         opacity: 0;

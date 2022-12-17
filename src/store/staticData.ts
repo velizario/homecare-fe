@@ -62,7 +62,7 @@ export const cleaningVariations:cleaningVariationsTypes = [
         label: "Стандартно почистване",
         time: "2 часа",
         icon: MdOutlineCleanHands,
-        selectable: false
+        selectable: true
     },
     {
         id: 2,

@@ -1,19 +1,20 @@
 import create from 'zustand'
-import {  CleanFreq, CleaningServices, SearchStoreType } from '../utils/AppTypes'
+import { CleanFreq, CleaningServices, FormArgs, bookCleaningStoreType } from '../utils/AppTypes'
 import produce from 'immer'
 
 // Define type
 
 // Use Zustand
 
-const searchStore = create<SearchStoreType>((set, get) => ({
+export const formDefaults:FormArgs = {
     cleaningArea: "",
+    date: undefined,
+    hour: "",
+    viberContactEnabled: false,
     firstName: "",
     lastName: "",
     address: "",
     phone: "",
-    date: "",
-    hour: "",
     frequency: undefined,
     cleaningServices : {
         standard: true,
@@ -21,10 +22,14 @@ const searchStore = create<SearchStoreType>((set, get) => ({
         oven: false,
         ironing: false,
     },
+}
+
+const bookCleaningStore = create<bookCleaningStoreType>((set, get) => ({
+    ...formDefaults,
     toggleService: (service: CleaningServices) => set(produce((state) => {state.cleaningServices[service] = !state.cleaningServices[service]})),
     getService: (service: CleaningServices) => get().cleaningServices[service],
     setFrequency: (freq: CleanFreq) => set(() => ({frequency: freq})),
     getFrequency: () => get().frequency,
 }))
 
-export default searchStore;
+export default bookCleaningStore;
