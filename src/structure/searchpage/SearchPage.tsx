@@ -3,8 +3,8 @@ import React from "react";
 import Dropdown from "../../utils/Dropdown";
 import Footer from "../homepage/Footer";
 import Header from "../homepage/Header";
-import ProfileFull from "../Profile/ProfileFull";
-import ProfileCard from "../Profile/ProfileThumbnail";
+import ProfileFull from "../CleanerCard/ProfileFull";
+import ProfileCard from "../CleanerCard/ProfileThumbnail";
 import { RiArrowLeftSLine } from 'react-icons/ri'
 import { Hours } from "../bookcleaning/CleaningRequirements";
 

@@ -2,7 +2,7 @@ import { Box, Icon, Text } from "@chakra-ui/react";
 import { GiStarFormation, GiWisdom } from "react-icons/gi";
 import { MdQuickreply } from "react-icons/md";
 
-type ProfileBadgeProps = {
+type CleanerCardBadgeProps = {
     active? : boolean;
     badge : 'star' | 'wisdom' | 'reply'
 }
@@ -13,7 +13,7 @@ const badgeTypes = {
     reply : {icon : MdQuickreply, label: 'Отговаря бързо'}
 }
 
-const ProfileBadge:React.FC<ProfileBadgeProps> = ({ active, badge }) => {
+const CleanerCardBadge:React.FC<CleanerCardBadgeProps> = ({ active, badge }) => {
     return (
         <Box p='3' h='24' w='24' borderRadius='md' border={active ? '1px solid #f0efed' : ""} bg={active ? 'white' : "#f7f9f9"} boxShadow={active ? '0 7px 20px -7px rgb(0 0 0 / 10%)' : ""} display='inline-flex' flexDir='column' alignItems='center' justifyContent='center'>
             <Icon as={badgeTypes[badge].icon} h='6' w='6' mb='2' color={active ? 'gray.700' : 'gray.400'} borderRadius='50%'></Icon>
@@ -22,4 +22,4 @@ const ProfileBadge:React.FC<ProfileBadgeProps> = ({ active, badge }) => {
     )
 }
 
-export default ProfileBadge;
+export default CleanerCardBadge;

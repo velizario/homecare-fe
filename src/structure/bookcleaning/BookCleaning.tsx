@@ -1,6 +1,6 @@
 import { Box, Container, Grid, GridItem } from "@chakra-ui/react";
 import CleaningRequirements from "./CleaningRequirements"
-import ProfileFull from "../Profile/ProfileFull";
+import ProfileFull from "../CleanerCard/ProfileFull";
 import Header from "../homepage/Header";
 import Footer from "../homepage/Footer";
 import ExposeState from "./ExposeState";

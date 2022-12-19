@@ -18,7 +18,7 @@ import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import { Controller, useForm } from "react-hook-form";
-import { CleaningServices, FormArgs } from "../../utils/AppTypes";
+import { CleaningServices, BookingFormArgs } from "../../utils/AppTypes";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
 import ButtonRoute from "../../utils/ButtonRoute";
@@ -95,7 +95,7 @@ const CleaningNeeds :React.FC = () => {
     }
 
     // Form logic
-    const { register, watch, handleSubmit, control, formState: {errors, isValid}} = useForm<FormArgs>({
+    const { register, watch, handleSubmit, control, formState: {errors, isValid}} = useForm<BookingFormArgs>({
         mode: 'onChange',
         defaultValues: formDefaults,
         resolver: yupResolver(schema)
@@ -114,7 +114,7 @@ const CleaningNeeds :React.FC = () => {
             // if (name==="cleaningServices") {
             //     return {[name] : data[name]}
             // }
-            return {[name] : data[name as keyof FormArgs]};
+            return {[name] : data[name as keyof BookingFormArgs]};
         }, false)));
         return () => subscription.unsubscribe();
       }, []);

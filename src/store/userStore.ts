@@ -8,6 +8,7 @@ type UserStore = {
 }
 
 const defaultUser = {
+    about: "",
     firstName: "",
     lastName: "",
     address: "",

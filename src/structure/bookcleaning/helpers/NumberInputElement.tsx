@@ -1,13 +1,13 @@
 import { Box, FormControl, FormErrorMessage, NumberInput, NumberInputField, NumberInputFieldProps, NumberInputProps } from "@chakra-ui/react";
 import { Control, Controller, useFormState } from "react-hook-form"
 import { useState } from "react";
-import { FormArgs } from "../../../utils/AppTypes";
+import { BookingFormArgs } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
 interface NumberInputElementProps extends NumberInputFieldProps  {
-    control: Control<FormArgs, object>
+    control: Control<BookingFormArgs, object>
     label?: string
-    name: keyof FormArgs
+    name: keyof BookingFormArgs
     
 }
 

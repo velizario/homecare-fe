@@ -1,12 +1,18 @@
 import create from 'zustand'
-import { CleanFreq, CleaningServices, FormArgs, bookCleaningStoreType } from '../utils/AppTypes'
+import { CleanFreq, CleaningServices, BookingFormArgs } from '../utils/AppTypes'
 import produce from 'immer'
 
-// Define type
 
-// Use Zustand
 
-export const formDefaults:FormArgs = {
+interface bookCleaningStoreType extends BookingFormArgs {
+    toggleService: (service: CleaningServices) => void
+    getService: (service: CleaningServices) => boolean
+    setFrequency: (freq: CleanFreq) => void
+    getFrequency: () => CleanFreq | undefined
+};
+
+
+export const formDefaults:BookingFormArgs = {
     cleaningArea: "",
     date: undefined,
     hour: "",

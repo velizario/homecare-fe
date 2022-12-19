@@ -5,7 +5,7 @@ import { AiOutlineInstagram } from 'react-icons/ai'
 import { GrFacebookOption } from 'react-icons/gr'
 import { CiGlobe } from 'react-icons/ci'
 import messageicon  from "../../resources/messageicon.svg"
-import ProfileBadge from "./ProfileBadge";
+import ProfileBadge from "./CleanerCardBadge";
 import ButtonRoute from "../../utils/ButtonRoute";
 
 
@@ -13,7 +13,7 @@ import ButtonRoute from "../../utils/ButtonRoute";
 
 const ProfileFull:React.FC = ( ) => {
     return (
-        <Box position="sticky" top="0">
+        <Box>
             <Box position='relative' mb='14' p='6' borderRadius='base' bg='white' >
                 <Grid templateColumns={'1fr 2fr'} gap='4' height='60' mb='10'>
                     <GridItem overflow='hidden' borderRadius='base' h='100%' maxH='100%'>

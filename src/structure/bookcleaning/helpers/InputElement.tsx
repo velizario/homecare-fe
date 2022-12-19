@@ -1,12 +1,12 @@
 import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { Control, Controller, useFormState, FieldValues } from "react-hook-form"
-import { FormArgs } from "../../../utils/AppTypes";
+import { BookingFormArgs } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
 interface InputElementProps extends InputProps  {
-    control: Control<FormArgs, object>;
+    control?: Control<BookingFormArgs, object>;
     label?: string;
-    name: keyof FormArgs;
+    name: keyof BookingFormArgs;
 }
 
 const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">(({children, control, onChange, name, ...props}, ref) => {
