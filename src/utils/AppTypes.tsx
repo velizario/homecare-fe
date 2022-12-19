@@ -14,7 +14,7 @@ export type User = {
     phone: string;
 }
 
-type UserKeys = {
+export type UserKeys = {
     [key in keyof User]: string
 }
 
@@ -22,7 +22,7 @@ type CleaningServicesKeys = {
     [key in CleaningServices] : boolean;
 }
 
-export interface FormArgs extends UserKeys {
+export interface BookingFormArgs extends UserKeys {
     cleaningArea: string;
     date: Date | undefined;
     hour: string;
@@ -30,10 +30,3 @@ export interface FormArgs extends UserKeys {
     cleaningServices: CleaningServicesKeys;
     viberContactEnabled: boolean;
 }
-
-export interface bookCleaningStoreType extends FormArgs {
-    toggleService: (service: CleaningServices) => void
-    getService: (service: CleaningServices) => boolean
-    setFrequency: (freq: CleanFreq) => void
-    getFrequency: () => CleanFreq | undefined
-};
