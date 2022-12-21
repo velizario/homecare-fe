@@ -17,8 +17,8 @@ import { OptionBase } from "chakra-react-select";
 import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
-import { Controller, useForm } from "react-hook-form";
-import { CleaningServices, BookingFormArgs } from "../../utils/AppTypes";
+import { Controller, useForm, UseFormWatch } from "react-hook-form";
+import { BookingFormArgs } from "../../utils/AppTypes";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
 import ButtonRoute from "../../utils/ButtonRoute";
@@ -27,7 +27,6 @@ import bookCleaningStore, { formDefaults } from "../../store/bookCleaningStore";
 import shallow from 'zustand/shallow'
 import styles from './CleaningRequirements.module.css'
 import { useNavigate } from "react-router-dom";
-
 
 export interface Hours extends OptionBase {
     value: string;
@@ -72,11 +71,10 @@ const hours:Hours[] = [
     ),
     }).required()
 
-const CleaningNeeds :React.FC = () => {
+const CleaningRequirements :React.FC = () => {
 
-    // User immer for object copy or implement get in the state.... fuck
+    // UserBasicInfoimmer for object copy or implement get in the state.... fuck
     const { services } = bookCleaningStore(state => ({services: state.cleaningServices}), shallow)
-    const toggleService = bookCleaningStore (state => state.toggleService)
     const getService = bookCleaningStore (state => state.getService)
     const setFrequency = bookCleaningStore (state => state.setFrequency)
     const selectedFrequency = bookCleaningStore (state => state.frequency)
@@ -101,28 +99,18 @@ const CleaningNeeds :React.FC = () => {
         resolver: yupResolver(schema)
     });
 
-    // Submit form
-    const submitForm = () => {
-        console.log("submitted!")
-        navigate("/orderplaced")
-    }
- 
     useEffect(() => {
         // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
         const subscription = watch((data, { name }) => (name && bookCleaningStore.setState((state) =>  {
-            console.log(data, name)
-            // if (name==="cleaningServices") {
-            //     return {[name] : data[name]}
-            // }
             return {[name] : data[name as keyof BookingFormArgs]};
         }, false)));
         return () => subscription.unsubscribe();
       }, []);
-  
+
 
     return (
         <Container maxW='xl' py='6' px='10' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgba(200,200,200,0.3) 0px 4px 10px -0px'>
-        <form onSubmit={handleSubmit(submitForm)}>
+        <form onSubmit={handleSubmit(() => navigate("/orderplaced"))}>
             <>{console.log(errors)}</>
             <Flex mb='7' alignItems='center' justifyContent='center'>
                 <Icon cursor='pointer' as={GoCalendar} h='7' w='7' mr='3'></Icon>
@@ -255,11 +243,11 @@ const CleaningNeeds :React.FC = () => {
             <OrderHeading mt='10'>При кого ще почистваме?</OrderHeading>
             <Box w='full' display='flex' flexDir='column'>
                 <Flex gap='2'>
-                    <InputElement control={control} {...register("firstName")} label="Име:" placeholder='Име...' ></InputElement>
-                    <InputElement control={control} {...register("lastName")} label="Фамилия:" placeholder='Фамилия...' ></InputElement>
+                    <InputElement<BookingFormArgs> control={control} {...register("firstName")} label="Име:" placeholder='Име...' ></InputElement>
+                    <InputElement<BookingFormArgs> control={control} {...register("lastName")} label="Фамилия:" placeholder='Фамилия...' ></InputElement>
                 </Flex>
-                <InputElement control={control} {...register("address")} label="Адрес: (улица/блок, номер, вход, етаж, апартамент)" placeholder='Въведете адрес...' ></InputElement>
-                <InputElement control={control} {...register("phone")} label="Телефонен номер:" placeholder='Въведете номер...' ></InputElement>
+                <InputElement<BookingFormArgs> control={control} {...register("address")} label="Адрес: (улица/блок, номер, вход, етаж, апартамент)" placeholder='Въведете адрес...' ></InputElement>
+                <InputElement<BookingFormArgs> control={control} {...register("phone")} label="Телефонен номер:" placeholder='Въведете номер...' ></InputElement>
             </Box>
             
             {/* viberContact */}
@@ -288,4 +276,4 @@ const CleaningNeeds :React.FC = () => {
     )
 }
 
-export default CleaningNeeds;
+export default CleaningRequirements;

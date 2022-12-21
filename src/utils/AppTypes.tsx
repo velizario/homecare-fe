@@ -7,15 +7,19 @@ export interface PropsWithChildren<T = void> {
     props?: T;
 }
 
-export type User = {
+export interface UserBasicInfo {
     firstName: string;
     lastName: string;
     address: string;
     phone: string;
 }
 
+export interface UserExtendedInfo extends UserBasicInfo {
+    about: string,
+}
+
 export type UserKeys = {
-    [key in keyof User]: string
+    [key in keyof UserBasicInfo]: string
 }
 
 type CleaningServicesKeys = {

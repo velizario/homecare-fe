@@ -1,15 +1,15 @@
 import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage } from "@chakra-ui/react";
-import { Control, Controller, useFormState, FieldValues, FieldPath } from "react-hook-form"
+import { Control, Controller, useFormState, FieldValues } from "react-hook-form"
 import { BookingFormArgs } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
-interface InputElementProps<T extends FieldValues> extends InputProps  {
-    control: Control<T, object>;
+interface InputElementProps extends InputProps  {
+    control?: Control<BookingFormArgs, object>;
     label?: string;
-    name: FieldPath<T>;
+    name: keyof BookingFormArgs;
 }
 
-const InputElement= forwardRef(<K extends FieldValues,>({children, control, onChange, name, ...props}: InputElementProps<K>) => {
+const InputElement:React.FC<InputElementProps> = forwardRef<InputElementProps, "input">(({children, control, onChange, name, ...props}, ref) => {
 
     // const handleChange = (value: string | undefined) => {
     //     console.log("starting change")
@@ -18,7 +18,7 @@ const InputElement= forwardRef(<K extends FieldValues,>({children, control, onCh
     // }
 
     const { errors } = useFormState({control})
-    const errorMessage = errors[name]?.message as string
+    const errorMessage = errors[name]?.message
  
     return (
 
@@ -31,6 +31,7 @@ const InputElement= forwardRef(<K extends FieldValues,>({children, control, onCh
                 (
                 <Box position="relative" display='flex' alignItems='center'>
                     <Input 
+                        ref={ref}
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}

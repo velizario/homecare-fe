@@ -14,6 +14,7 @@ const inputBaseStyle = definePartsStyle({
     boxShadow: 'none',
     // boxShadow: 'rgba(200,200,200,0.3) 0px 4px 10px',
     height: '14',
+    mb: "0",
     _focusVisible: {
       // border: '2px solid #26a0f7',
       borderColor: '#26a0f7',
@@ -25,6 +26,6 @@ const inputBaseStyle = definePartsStyle({
   },
 })
 
-export const inputTheme = defineMultiStyleConfig({ variants: { outline : inputBaseStyle } })
+export const inputTheme = defineMultiStyleConfig({ variants: { homecare : inputBaseStyle } })
 // End defining Input multipart component style
 

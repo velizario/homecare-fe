@@ -1,6 +1,5 @@
 import { Box, Container, Flex, Heading, Image, NumberInput, NumberInputField, Text } from "@chakra-ui/react";
 import ButtonRoute from "../../utils/ButtonRoute";
-import NumberInputElement from "../bookcleaning/helpers/NumberInputElement";
 
 const Hero : React.FC = () => {
 

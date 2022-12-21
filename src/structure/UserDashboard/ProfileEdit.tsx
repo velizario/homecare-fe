@@ -1,13 +1,19 @@
 import { Box, Input, Image, Button, Flex, Grid, Text, Textarea  } from "@chakra-ui/react"
 import OrderLabel from "../bookcleaning/helpers/OrderLabel"
 import bookCleaningStore from "../../store/bookCleaningStore"
-import { useRef, useState } from "react"
-import { User } from "../../utils/AppTypes"
-import ProfileThumbnail from "../CleanerCard/ProfileThumbnail"
-import { boolean } from "yup/lib/locale"
+import { useEffect, useRef } from "react"
+import { UserBasicInfo, UserExtendedInfo} from "../../utils/AppTypes"
+import { Controller, useForm } from "react-hook-form";
 import ButtonRoute from "../../utils/ButtonRoute"
+import userStore, { defaultUserExtendedInfo } from "../../store/userStore"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup";
+import InputElement from "../bookcleaning/helpers/InputElement"
+import { useNavigate } from "react-router-dom"
+import ExposeState from "./ExposeState"
+import produce from 'immer'
 
-const formInputs: {label: string; storeArg: keyof User; focusable: boolean, placeholder: string}[] = [
+const formInputs: {label: string; storeArg: keyof UserBasicInfo; focusable: boolean, placeholder: string}[] = [
     {
         label: "Име:",
         placeholder: "Въведете име...",
@@ -36,30 +42,43 @@ const formInputs: {label: string; storeArg: keyof User; focusable: boolean, plac
 ]
 
 type ProfileEditProps = {
-    profileEditable: boolean
+    profileEditable: boolean;
 }
 
-const ProfileEdit:React.FC<ProfileEditProps> = ({ profileEditable}) => {
-    console.log(profileEditable)
-    const store = bookCleaningStore()
+const schema = yup.object({
+    firstName: yup.string().required("Въведете име"),
+    lastName: yup.string().required("Въведете фамилия"),
+    phone: yup.number().positive().integer().required("Въведете номер").typeError("Въведете номер"),
+    address: yup.string().required("Въведете адрес"),
+    about: yup.string().required("Въведете информация за Вас")
+})
 
-    // const [profileEditable, setprofileEditable] = useState(false)
-
+const ProfileEdit:React.FC<ProfileEditProps> = ({ profileEditable }) => {
+    const store = userStore()
     const inputRef = useRef<HTMLTextAreaElement>(null)
+    const navigate = useNavigate()
 
-    // const handleFormButtonClick = () => {
-    //     if (!profileEditable) {
-    //         setProfileEditable(true)
-    //         inputRef.current?.focus()
-    //     }
-    //     else {
-    //     }
-    // }
+    const { register, watch, handleSubmit, control, formState: {errors, isValid}} = useForm<UserExtendedInfo>({
+        mode: "onChange",
+        defaultValues: store.data || defaultUserExtendedInfo,
+        resolver: yupResolver(schema)
+    })
+
+    useEffect(() => {
+        // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
+
+        const subscription = watch((data, { name }) => (name && userStore.setState(produce(state =>  {
+            // console.log("Form updated. Updating store...", data, name)
+                state.data[name] = data[name as keyof UserExtendedInfo]
+            })), false));
+        return () => subscription.unsubscribe();
+      }, []);
 
     return (
     <Box>
+        <ExposeState/>
         <Box bg="white" position="relative" p="14" w="2xl" boxShadow="0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03)" borderRadius="md">
-            <form>
+            <form id='edit-profile-form' onSubmit={handleSubmit(() => navigate("/orderplaced"))}>
                 <Grid templateColumns={"1fr 4fr"} gap="4" mb="7" >
                     <Flex flexDirection="column" alignItems="flex-start" justifyContent="center" width="full">
                         <Button mb="1" size="sm" variant="link" disabled={!profileEditable} cursor={profileEditable ? "pointer" : "unset !important"} >Качете снимка</Button>
@@ -67,19 +86,43 @@ const ProfileEdit:React.FC<ProfileEditProps> = ({ profileEditable}) => {
                     </Flex>
                     <Box >
                         <OrderLabel>Няколко думи за Вас:</OrderLabel>
-                        <Textarea resize="none" ref={inputRef}  bg={profileEditable ? "white" : "#f6f7fb"} cursor={profileEditable ? "initial" : "default !important"}  disabled={!profileEditable} h="40">Марти е старшиМарти е старши UI/UX дизайнер, базиран в Ню Йорк. През последните няколко години той проектира цифрови продукти за банковата, хотелиерската, модната, здравната, фармацевтичната, автомобилната и софтуерната индустрии.Марти е старши UI/UX дизайнер, базиран в Ню Йорк. През последните няколко години той проектира цифрови продукти за банковата, хотелиерската, модната, здравната, фармацевтичната, автомобилната и софтуерната индустрии.Марти е старши UI/UX дизайнер, базиран в Ню Йорк. През последните няколко години той проектира цифрови продукти за банковата, хотелиерската, модната, здравната, фармацевтичната, автомобилната и софтуерната индустрии. UI/UX дизайнер, базиран в Ню Йорк. През последните няколко години той проектира цифрови продукти за банковата, хотелиерската, модната, здравната, фармацевтичната, автомобилната и софтуерната индустрии.</Textarea>    
+                        <Controller
+                            control={control}
+                            name="about"
+                            render={({ field: { onChange, value}}) => (
+                                <Textarea 
+                                    resize="none" 
+                                    ref={inputRef}  
+                                    bg={profileEditable ? "white" : "#f6f7fb"} 
+                                    cursor={profileEditable ? "initial" : "default !important"}  
+                                    pointerEvents={profileEditable ? "unset" : "none"} 
+                                    tabIndex={profileEditable ? 0 : -1} 
+                                    h="40" 
+                                    onChange={onChange}
+                                    value={value?.toString()}/>
+
+                                )}/>
                     </Box>
                 </Grid>
                 {formInputs.map(formInput => {
                     return (
-                        <Box key={formInput.label}>
+                        <Box key={formInput.storeArg}>
                             <OrderLabel>{formInput.label}</OrderLabel>
-                            <Input size='xs' borderRadius="md" mb="7" value={store[formInput.storeArg]} bg={profileEditable ? "white" : "#f6f7fb"} disabled={!profileEditable} cursor={profileEditable ? "initial" : "default !important"} placeholder={formInput.placeholder}/>
+                            <InputElement<UserExtendedInfo> 
+                                control={control} 
+                                {...register(formInput.storeArg)}
+                                value={store.data && store.data[formInput.storeArg] || ""}
+                                tabIndex={profileEditable ? 0 : -1}
+                                borderRadius="md" 
+                                bg={profileEditable ? "white" : "#f6f7fb"} 
+                                cursor={profileEditable ? "initial" : "default !important"} 
+                                pointerEvents={profileEditable ? "unset" : "none"} 
+                                placeholder={formInput.placeholder}
+                                />
                         </Box>
                     )
                 })}
-                {profileEditable && <ButtonRoute variant="outline" size="sm">Записване</ButtonRoute>}
-                {/* <Button onClick={handleFormButtonClick} variant="outline" position="absolute" top="2" right="2">{profileEditable ? "Запиши" : "Редактирай"}</Button> */}
+                {profileEditable && <ButtonRoute type="submit" variant="outline" size="sm">Записване</ButtonRoute>}
             </form>
         </Box>
     </Box>

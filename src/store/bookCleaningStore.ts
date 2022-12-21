@@ -4,7 +4,7 @@ import produce from 'immer'
 
 
 
-interface bookCleaningStoreType extends BookingFormArgs {
+export interface bookCleaningStoreType extends BookingFormArgs {
     toggleService: (service: CleaningServices) => void
     getService: (service: CleaningServices) => boolean
     setFrequency: (freq: CleanFreq) => void

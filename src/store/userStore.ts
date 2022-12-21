@@ -1,13 +1,13 @@
 import create from 'zustand'
-import { User } from '../utils/AppTypes'
+import { UserExtendedInfo} from '../utils/AppTypes'
 
 // Define type
 type UserStore = {
-    user: User | null;
-    updateUser: (user: User) => void;
+    data: UserExtendedInfo | null;
+    updateUser: (user: UserExtendedInfo) => void;
 }
 
-const defaultUser = {
+export const defaultUserExtendedInfo= {
     about: "",
     firstName: "",
     lastName: "",
@@ -15,17 +15,11 @@ const defaultUser = {
     phone: "",
 }
 
-
-// Use Zustand
-
 const userStore = create<UserStore>((set,get) => ({
-    user: defaultUser,
-    updateUser: (user) => {
-        set(state => ({
-            ...state,
-            user: user
-        }));
-        console.log("State changed! New value", get().user)
+    data: defaultUserExtendedInfo,
+    updateUser: (data) => {
+        set(() => ({data}));
+        console.log("State changed! New value", get().data)
     }
 }))
 

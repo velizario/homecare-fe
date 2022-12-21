@@ -11,10 +11,11 @@ const ProfileMain = () => {
 
     const [profileEditable, setProfileEditable] = useState(false)
 
-    return (
+        return (
     <Box  w="70%" minH="100vh"  p="10" bg="#fafbfc" position="relative" zIndex='1'>
         <Flex flexDirection='row' justifyContent="space-between" w="2xl" mb="4">
-            <ButtonRoute variant="outline" size="sm" onClick={() => setProfileEditable(true)}>{profileEditable ? "Записване" : "Редактиране"}</ButtonRoute>
+        {profileEditable && <ButtonRoute variant="outline" size="sm" type="submit" form='edit-profile-form'>Записване</ButtonRoute>}
+        {!profileEditable && <ButtonRoute variant="outline" size="sm" onClick={()=> setProfileEditable(true)}>Редактиране</ButtonRoute>}
             <ButtonRoute variant="link" size="sm" mr="4" to="view">Преглед</ButtonRoute>
         </Flex>
         <Routes>

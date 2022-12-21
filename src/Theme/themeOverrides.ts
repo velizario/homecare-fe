@@ -1,8 +1,7 @@
-import { defineStyle, defineStyleConfig, extendTheme, theme as base } from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import { buttonTheme } from "./buttonConfig";
 import { containerTheme } from "./containerConfig";
 import { inputTheme } from "./InputConfig";
-import { numberInputTheme } from "./InputNumberConfig";
 import * as themeColors from "./themeColors";
 import { tooltipTheme } from "./tooltipConfig";
 
@@ -38,7 +37,6 @@ const theme = extendTheme({
       Button: buttonTheme,
       Tooltip: tooltipTheme,
       Input: inputTheme,
-      NumberInput: numberInputTheme,
     }
 });
 
