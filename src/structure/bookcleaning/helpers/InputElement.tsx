@@ -1,6 +1,5 @@
-import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage } from "@chakra-ui/react";
+import { Input, InputProps, forwardRef, Box, FormControl, FormErrorMessage} from "@chakra-ui/react";
 import { Control, Controller, useFormState, FieldValues, FieldPath } from "react-hook-form"
-import { BookingFormArgs } from "../../../utils/AppTypes";
 import OrderLabel from "./OrderLabel";
 
 interface InputElementProps<T extends FieldValues> extends InputProps  {
@@ -8,14 +7,10 @@ interface InputElementProps<T extends FieldValues> extends InputProps  {
     label?: string;
     name: FieldPath<T>;
 }
-
-const InputElement= forwardRef(<K extends FieldValues,>({children, control, onChange, name, ...props}: InputElementProps<K>) => {
-
-    // const handleChange = (value: string | undefined) => {
-    //     console.log("starting change")
-    //     userStore.setState({client: {[props.name] : value}})
-    //     console.log(userStore.getState().client)
-    // }
+const InputElementInner= <K extends FieldValues,>(
+        {children, control, onChange, name, ...props}: InputElementProps<K>, 
+        ref:React.ForwardedRef<HTMLInputElement >
+    ) => {
 
     const { errors } = useFormState({control})
     const errorMessage = errors[name]?.message as string
@@ -31,6 +26,7 @@ const InputElement= forwardRef(<K extends FieldValues,>({children, control, onCh
                 (
                 <Box position="relative" display='flex' alignItems='center'>
                     <Input 
+                        ref={ref}
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}
@@ -54,7 +50,11 @@ const InputElement= forwardRef(<K extends FieldValues,>({children, control, onCh
     
 
     )
-})
+} 
+
+const InputElement = forwardRef(InputElementInner) as <T extends FieldValues>(
+    props: InputElementProps<T> & { ref?: React.ForwardedRef<HTMLInputElement> }
+  ) => ReturnType<typeof InputElementInner>;
 
 export default InputElement;
 
