@@ -15,7 +15,8 @@ export interface UserBasicInfo {
 }
 
 export interface UserExtendedInfo extends UserBasicInfo {
-    about: string,
+    imageName: File | undefined;
+    about: string;
 }
 
 export type UserKeys = {

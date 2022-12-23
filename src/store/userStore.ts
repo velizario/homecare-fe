@@ -7,7 +7,8 @@ type UserStore = {
     updateUser: (user: UserExtendedInfo) => void;
 }
 
-export const defaultUserExtendedInfo= {
+export const defaultUserExtendedInfo: UserExtendedInfo= {
+    imageName: undefined,
     about: "",
     firstName: "",
     lastName: "",

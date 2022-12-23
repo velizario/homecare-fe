@@ -17,6 +17,7 @@
     "@types/node": "^16.11.66",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
+    "axios": "^1.2.1",
     "chakra-react-select": "^4.4.0",
     "date-fns": "^2.29.3",
     "framer-motion": "^6.5.1",

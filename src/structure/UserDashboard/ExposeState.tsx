@@ -6,7 +6,10 @@ const ExposeState:React.FC = () => {
     return (
         // <pre style={{position: "sticky", top: "0", right: "0", width:"min-content", zIndex:"100"}}>
         <pre>
-            {JSON.stringify(store, null, 2)}
+            <>
+                {JSON.stringify(store, null, 2)}
+                {console.log(store)}
+            </>
         </pre>
     )
 }
