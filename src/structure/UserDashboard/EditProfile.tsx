@@ -43,7 +43,7 @@ const formInputs: {label: string; storeArg: keyof UserBasicInfo; focusable: bool
 
 ]
 
-type ProfileEditProps = {
+type EditProfileProps = {
     profileEditable: boolean;
 }
 
@@ -55,7 +55,7 @@ const schema = yup.object({
     about: yup.string().required("Въведете информация за Вас")
 })
 
-const ProfileEdit:React.FC<ProfileEditProps> = ({ profileEditable }) => {
+const EditProfile:React.FC<EditProfileProps> = ({ profileEditable }) => {
     const store = userStore()
     const inputRef = useRef<HTMLTextAreaElement>(null)
     const navigate = useNavigate()
@@ -142,4 +142,4 @@ const ProfileEdit:React.FC<ProfileEditProps> = ({ profileEditable }) => {
     )
 }
 
-export default ProfileEdit
+export default EditProfile

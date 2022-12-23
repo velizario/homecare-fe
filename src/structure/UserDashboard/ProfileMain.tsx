@@ -2,8 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import ButtonRoute from "../../utils/ButtonRoute";
-import ProfileThumbnail from "../CleanerCard/ProfileThumbnail";
-import ProfileEdit from "./ProfileEdit";
+import EditProfile from "./EditProfile";
 import ProfileView from "./ProfileView";
 
 
@@ -19,7 +18,7 @@ const ProfileMain = () => {
             <ButtonRoute variant="link" size="sm" mr="4" to="view">Преглед</ButtonRoute>
         </Flex>
         <Routes>
-            <Route index element={<ProfileEdit profileEditable={profileEditable}/>}/>
+            <Route index element={<EditProfile profileEditable={profileEditable}/>}/>
             <Route path="view" element={<ProfileView/>}/>
         </Routes>
     </Box>
