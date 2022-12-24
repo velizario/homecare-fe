@@ -67,6 +67,7 @@ const EditProfile:React.FC<EditProfileProps> = ({ profileEditable }) => {
         resolver: yupResolver(schema)
     })
 
+
     useEffect(() => {
         // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
 
@@ -79,6 +80,15 @@ const EditProfile:React.FC<EditProfileProps> = ({ profileEditable }) => {
             })), false));
         return () => subscription.unsubscribe();
       }, []);
+
+      useEffect(() => {
+        // Subscribe to watch every registered field in the form and invoke a callback function userStore.setState to update the state
+
+        const subscription = watch((data, { name }) => (name && userStore.setState(produce<typeof store>(state => {state.data = data})), false));
+        return () => subscription.unsubscribe();
+      }, []);
+
+      
 
     const submitFormHandler = () => {
         // define property, url and filename
@@ -96,7 +106,7 @@ const EditProfile:React.FC<EditProfileProps> = ({ profileEditable }) => {
                         <Image borderRadius="md" src='https://storage.ws.pho.to/s2/f607aa4c6a291a39cc8c654481fe72568435da6c_m.jpg' maxH="40" maxW="100%" objectFit='contain' objectPosition='50% 50%'></Image>
                     </Flex>
                     // TODO: integrate FileUpload in the form with Control
-                    <FileUpload/>
+                    <FileUpload control={control} {...register("imageName")} />
                     <Box >
                         <OrderLabel>Няколко думи за Вас:</OrderLabel>
                         <Controller
@@ -124,7 +134,7 @@ const EditProfile:React.FC<EditProfileProps> = ({ profileEditable }) => {
                             <InputElement<UserExtendedInfo> 
                                 control={control} 
                                 {...register(formInput.storeArg)}
-                                value={store.data && store.data[formInput.storeArg] || ""}
+                                // value={store.data && store.data[formInput.storeArg] || ""}
                                 tabIndex={profileEditable ? 0 : -1}
                                 borderRadius="md" 
                                 bg={profileEditable ? "white" : "#f6f7fb"} 

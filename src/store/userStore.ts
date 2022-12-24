@@ -16,6 +16,7 @@ export const defaultUserExtendedInfo: UserExtendedInfo= {
     phone: "",
 }
 
+
 const userStore = create<UserStore>((set,get) => ({
     data: defaultUserExtendedInfo,
     updateUser: (data) => {

@@ -7,8 +7,9 @@ interface InputElementProps<T extends FieldValues> extends InputProps  {
     label?: string;
     name: FieldPath<T>;
 }
+
 const InputElementInner= <K extends FieldValues,>(
-        {children, control, onChange, name, ...props}: InputElementProps<K>, 
+        {children, control, name, label, ...props}: InputElementProps<K>, 
         ref:React.ForwardedRef<HTMLInputElement >
     ) => {
 
@@ -18,7 +19,7 @@ const InputElementInner= <K extends FieldValues,>(
     return (
 
         <FormControl isInvalid={errorMessage ? true : false} mb = '6'> 
-            <OrderLabel>{props.label}</OrderLabel>
+            <OrderLabel>{label}</OrderLabel>
             <Controller
                 control={control}
                 name={name}
@@ -30,7 +31,6 @@ const InputElementInner= <K extends FieldValues,>(
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}
-                        value={value?.toString()}
                         h='14' 
                         zIndex='5' 
                         borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}

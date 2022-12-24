@@ -1,26 +1,26 @@
-import { Box, Input } from "@chakra-ui/react"
-import { ChangeEvent } from "react"
-import userStore from "../../store/userStore"
-import produce from "immer"
+import { Box, forwardRef, Input, InputProps } from "@chakra-ui/react"
+import { Control, Controller, FieldPath } from "react-hook-form"
+import { UserExtendedInfo } from "../../utils/AppTypes"
 
-const FileUpload = () => {
-    const store = userStore();
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.files) return;
-        
-        const fileName = event.target.files[0]
-        userStore.setState(produce((state: typeof store) => {
-            if (state.data) state.data.imageName = fileName;
-        }
-        ));
-        
-    }
+interface FileUploadProps extends InputProps  {
+    control : Control<UserExtendedInfo, object>;
+    name: FieldPath<UserExtendedInfo>;
+    ref?: React.ForwardedRef<HTMLInputElement>
+}
+
+const FileUpload:React.FC<FileUploadProps> = forwardRef(({children, control, name, ...props}, ref) => {
     
     return (
         <Box>
-            <Input type="file" onChange={handleChange} border='none'/>
+            <Controller 
+                control={control}
+                name={name}
+                render = {({ field: { onChange }}) => (
+                     <Input ref={ref} {...props} type="file" onChange={(e) => onChange(e.target.files![0])} border='none'>{children}</Input>
+                )}
+            />
         </Box>
     )
-}
+})
 
 export default FileUpload;

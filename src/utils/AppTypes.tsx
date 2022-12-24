@@ -8,15 +8,15 @@ export interface PropsWithChildren<T = void> {
 }
 
 export interface UserBasicInfo {
-    firstName: string;
-    lastName: string;
-    address: string;
-    phone: string;
+    firstName?: string;
+    lastName?: string;
+    address?: string;
+    phone?: string;
 }
 
 export interface UserExtendedInfo extends UserBasicInfo {
-    imageName: File | undefined;
-    about: string;
+    imageName?: File;
+    about?: string;
 }
 
 export type UserKeys = {
