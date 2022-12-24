@@ -35,9 +35,8 @@ const MenuPanel = () => {
     }
 
     return (
-    <Box w='30%' px='4' py="4" bg="white" position='relative' zIndex='100'>
+    <Box px='4' py="4" bg="white" position='relative' boxShadow="md" >
         <Flex w="56" position="relative" marginLeft="auto" marginRight="0" flexDirection='column' alignItems='flex-start' >
-            <>{console.log(activeButton)}</>
             {panelButtons.map((button) => (
                 <Flex key={button.id} alignItems="center" w="100%">
                     <Button 

@@ -6,11 +6,12 @@ interface InputElementProps<T extends FieldValues> extends InputProps  {
     control: Control<T, object>;
     label?: string;
     name: FieldPath<T>;
+    borderColor?: string;
 }
 
 const InputElementInner= <K extends FieldValues,>(
-        {children, control, name, label, ...props}: InputElementProps<K>, 
-        ref:React.ForwardedRef<HTMLInputElement >
+        {children, control, name, label, borderColor, ...props}: InputElementProps<K>, 
+        _ref:React.ForwardedRef<HTMLInputElement >
     ) => {
 
     const { errors } = useFormState({control})
@@ -23,21 +24,21 @@ const InputElementInner= <K extends FieldValues,>(
             <Controller
                 control={control}
                 name={name}
-                render={({ field: { onChange, value}}) => 
+                render={({ field: { onChange, value, ref}}) => 
                 (
                 <Box position="relative" display='flex' alignItems='center'>
+                    {children}
                     <Input 
                         ref={ref}
+                        borderColor={`${borderColor ? borderColor : !!value ? '#26a0f7' : 'lightgray'}`}
                         {...props}
                         letterSpacing={0.2}
                         onChange={onChange}
                         h='14' 
                         zIndex='5' 
-                        borderColor={`${!!value ? '#26a0f7' : 'lightgray'}`}
                         boxShadow='none'
                     >
                     </Input>
-                    {children}
                 </Box>
                 )}
             />

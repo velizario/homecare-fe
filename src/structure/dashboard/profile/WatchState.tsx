@@ -1,7 +1,7 @@
-import bookCleaningStore from "../../store/bookCleaningStore"
-import userStore from "../../store/userStore";
+import bookCleaningStore from "../../../store/bookCleaningStore"
+import userStore from "../../../store/userStore";
 
-const ExposeState:React.FC = () => {
+const WatchState:React.FC = () => {
     const store = userStore()
     return (
         // <pre style={{position: "sticky", top: "0", right: "0", width:"min-content", zIndex:"100"}}>
@@ -14,4 +14,4 @@ const ExposeState:React.FC = () => {
     )
 }
 
-export default ExposeState;
+export default WatchState;

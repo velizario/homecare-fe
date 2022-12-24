@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 interface ButtonRouteProps extends ButtonProps {
     to?: string;
+    newWindow? : boolean
 }
 
 const ButtonRoute:React.FC<ButtonRouteProps> = ({ to, onClick, children, ...rest }) => {

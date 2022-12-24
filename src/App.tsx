@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import OrderPlaced from './structure/bookcleaning/OrderPlaced';
 import AboutUsMain from './structure/about/AboutUsMain';
 import ServicesMain from './structure/services/ServicesMain';
-import UserDashboardPage from './structure/UserDashboard/UserDashboardPage';
+import Dashboard from './structure/dashboard/Dashboard';
 import PageNotFound from './structure/defaultRoutePage/PageNotFound';
 
 
@@ -24,7 +24,8 @@ function App() {
         <Route path='orderplaced' element={<OrderPlaced/>} />
         <Route path='services' element={<ServicesMain/>} />
         <Route path='about' element={<AboutUsMain/>} />
-        <Route path='dashboard/*' element={<UserDashboardPage/>} />
+        <Route path='dashboard/*' element={<Dashboard/>} />
+        <Route path='profile/*' element={<ProfileFull/>} />
         <Route path='*' element={<PageNotFound/>} />
       </Routes>
     </BrowserRouter>
