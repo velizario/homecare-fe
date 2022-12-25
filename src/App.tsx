@@ -11,7 +11,7 @@ import AboutUsMain from './structure/about/AboutUsMain';
 import ServicesMain from './structure/services/ServicesMain';
 import Dashboard from './structure/dashboard/Dashboard';
 import PageNotFound from './structure/defaultRoutePage/PageNotFound';
-
+import './App.css'
 
 function App() {
   return (
