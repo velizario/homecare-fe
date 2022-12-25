@@ -27,7 +27,6 @@ import bookCleaningStore, { formDefaults } from "../../store/bookCleaningStore";
 import shallow from 'zustand/shallow'
 import styles from './CleaningRequirements.module.css'
 import { useNavigate } from "react-router-dom";
-import BoxSelectionSet from "./BoxSelectionSet";
 
 export interface Hours extends OptionBase {
     value: string;
@@ -122,15 +121,8 @@ const CleaningRequirements :React.FC = () => {
                 <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
             </InputElement>
             <OrderHeading mt='10'>Колко често ще са посещенията?</OrderHeading>
-            <BoxSelectionSet<BookingFormArgs>
-                // TODO use register instead of control. How about that!!!!
-                register={register}
-                getPropertyState = {getService}
-                changeHandler= {(property, newValue: any) => setFrequency(name)}
-                selectionVariation=: {name: "cleaningServices", id: number, selectable: boolean}[]
-                name= "cleaningServices"
-            />
-            {/* <Controller control={control}
+
+            <Controller control={control}
                 name="frequency"
                 render={({ field: { onChange, value } }) => (
                     <FormControl isInvalid={errors["frequency"] ? true : false}>
@@ -154,7 +146,7 @@ const CleaningRequirements :React.FC = () => {
                         </FormErrorMessage>
                     </FormControl>
                 )}
-            /> */}
+            />
 
             <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
             <Controller 
