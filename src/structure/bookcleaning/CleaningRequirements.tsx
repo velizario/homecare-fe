@@ -1,6 +1,5 @@
 import { Box, Container, Heading,  Text, Icon, Flex, SlideFade, Checkbox, Tooltip, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Radio, RadioGroup } from '@chakra-ui/react'
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCheckCircle } from "react-icons/fa"
 import { GrCircleInformation } from "react-icons/gr"
@@ -17,16 +16,16 @@ import { OptionBase } from "chakra-react-select";
 import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
-import { Controller, useForm, UseFormWatch } from "react-hook-form";
-import { BookingFormArgs, CleaningServicesKeys } from "../../utils/AppTypes";
+import { Controller, useForm } from "react-hook-form";
+import { BookingFormArgs } from "../../utils/AppTypes";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
 import ButtonRoute from "../../utils/ButtonRoute";
 import { cleaningVariations, visitRecurrences } from "../../store/staticData";
 import bookCleaningStore, { formDefaults } from "../../store/bookCleaningStore";
-import shallow from 'zustand/shallow'
 import styles from './CleaningRequirements.module.css'
 import { useNavigate } from "react-router-dom";
+import WatchState from "../dashboard/profile/WatchState";
 
 export interface Hours extends OptionBase {
     value: string;
@@ -73,8 +72,6 @@ const hours:Hours[] = [
 
 const CleaningRequirements :React.FC = () => {
 
-    // UserBasicInfoimmer for object copy or implement get in the state.... fuck
-    const { services } = bookCleaningStore(state => ({services: state.cleaningServices}), shallow)
     const getService = bookCleaningStore (state => state.getService)
     const setFrequency = bookCleaningStore (state => state.setFrequency)
     const selectedFrequency = bookCleaningStore (state => state.frequency)
@@ -110,8 +107,8 @@ const CleaningRequirements :React.FC = () => {
 
     return (
         <Container maxW='xl' py='6' px='10' bg='white' display='flex' alignItems='center' flexDirection='column' borderRadius='2xl' boxShadow='rgba(200,200,200,0.3) 0px 4px 10px -0px'>
+        <WatchState store={bookCleaningStore} mode={1}/>
         <form onSubmit={handleSubmit(() => navigate("/orderplaced"))}>
-            <>{console.log(errors)}</>
             <Flex mb='7' alignItems='center' justifyContent='center'>
                 <Icon cursor='pointer' as={GoCalendar} h='7' w='7' mr='3'></Icon>
                 <Heading fontSize='2xl' fontWeight='normal' textAlign='center' >Поръчай почистване</Heading>
@@ -126,21 +123,20 @@ const CleaningRequirements :React.FC = () => {
                 name="frequency"
                 render={({ field: { onChange, value } }) => (
                     <FormControl isInvalid={errors["frequency"] ? true : false}>
-                        <RadioGroup className={styles.radioSelections} onChange={(e) => {console.log(e); onChange(e)}} value={value}>
-                            {visitRecurrences.map(recurrence => {
-                                return (
-                                <Radio
-                                    isFocusable={false} 
-                                    key={recurrence.name} 
-                                    value={recurrence.name}
-                                    data-id={recurrence.id}>
-                                        <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={selectedFrequency===recurrence.name} selectable={recurrence.selectable} onClick={recurrence.selectable ? () => setFrequency(recurrence.name) : undefined} >
-                                            <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.label}</Text>                 
-                                            <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.price}</Text>
-                                        </OrderItem>
-                                </Radio>)
-                            })}
-                        </RadioGroup>
+                        {visitRecurrences.map(recurrence => {
+                            return (
+                                <OrderItem 
+                                key={recurrence.name} 
+                                data-id={recurrence.id} 
+                                data-name={recurrence.name} 
+                                active={selectedFrequency===recurrence.name} selectable={recurrence.selectable} 
+                                onClick={recurrence.selectable ? () => onChange(recurrence.name) : undefined} 
+                                >
+                                    <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.label}</Text>                 
+                                    <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.price}</Text>
+                                </OrderItem>
+                            )
+                        })}
                         <FormErrorMessage mt='0'>
                             {errors["frequency"]?.message}
                         </FormErrorMessage>
