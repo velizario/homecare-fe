@@ -1,8 +1,8 @@
 import { Container, Box, FormControl, Text, Grid, GridItem, HStack, Tag, TagCloseButton, TagLabel, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Input, useDisclosure, Divider } from "@chakra-ui/react";
 import React from "react";
 import Dropdown from "../../utils/Dropdown";
-import Footer from "../homepage/Footer";
-import Header from "../homepage/Header";
+import Footer from "../headerFooter/Footer";
+import Header from "../headerFooter/Header";
 import ProfileFull from "../CleanerCard/ProfileFull";
 import ProfileCard from "../CleanerCard/ProfileThumbnail";
 import { RiArrowLeftSLine } from 'react-icons/ri'

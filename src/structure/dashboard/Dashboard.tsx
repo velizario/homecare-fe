@@ -1,7 +1,7 @@
 import {  Container, Flex } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
-import Header from "../homepage/Header";
-import Footer from "../homepage/Footer";
+import Header from "../headerFooter/Header";
+import Footer from "../headerFooter/Footer";
 import MenuPanel from "./MenuPanel";
 import Messages from "./messages/Messages";
 import Orders from "./orders/Orders";

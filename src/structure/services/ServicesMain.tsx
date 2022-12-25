@@ -1,5 +1,5 @@
-import Footer from "../homepage/Footer";
-import Header from "../homepage/Header";
+import Footer from "../headerFooter/Footer";
+import Header from "../headerFooter/Header";
 
 const ServicesMain:React.FC = () => {
     return (<>

@@ -1,8 +1,8 @@
 import { Box, Container, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { BsCheckCircle } from "react-icons/bs"
 import ButtonRoute from "../../utils/ButtonRoute";
-import Footer from "../homepage/Footer";
-import Header from "../homepage/Header";
+import Footer from "../headerFooter/Footer";
+import Header from "../headerFooter/Header";
 
 const OrderPlaced:React.FC = () => {
     return (

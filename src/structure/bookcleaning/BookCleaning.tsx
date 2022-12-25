@@ -1,8 +1,8 @@
 import { Container, Grid, GridItem } from "@chakra-ui/react";
 import CleaningRequirements from "./CleaningRequirements"
 import ProfileFull from "../CleanerCard/ProfileFull";
-import Header from "../homepage/Header";
-import Footer from "../homepage/Footer";
+import Header from "../headerFooter/Header";
+import Footer from "../headerFooter/Footer";
 
 const BookCleaning:React.FC = () => {
     return (

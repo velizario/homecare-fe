@@ -15,7 +15,7 @@ const InputElementInner= <K extends FieldValues,>(
     ) => {
 
     const { errors } = useFormState({control})
-    const errorMessage = errors[name]?.message as string
+    const errorMessage = errors[name]?.message?.toString()
  
     return (
 

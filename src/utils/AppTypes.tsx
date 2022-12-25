@@ -23,7 +23,7 @@ export type UserKeys = {
     [key in keyof UserBasicInfo]: string
 }
 
-type CleaningServicesKeys = {
+export type CleaningServicesKeys = {
     [key in CleaningServices] : boolean;
 }
 

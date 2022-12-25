@@ -18,7 +18,7 @@ import InputElement from "./helpers/InputElement";
 import OrderHeading from "./helpers/OrderHeading";
 import OrderLabel from "./helpers/OrderLabel";
 import { Controller, useForm, UseFormWatch } from "react-hook-form";
-import { BookingFormArgs } from "../../utils/AppTypes";
+import { BookingFormArgs, CleaningServicesKeys } from "../../utils/AppTypes";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup";
 import ButtonRoute from "../../utils/ButtonRoute";
@@ -27,6 +27,7 @@ import bookCleaningStore, { formDefaults } from "../../store/bookCleaningStore";
 import shallow from 'zustand/shallow'
 import styles from './CleaningRequirements.module.css'
 import { useNavigate } from "react-router-dom";
+import BoxSelectionSet from "./BoxSelectionSet";
 
 export interface Hours extends OptionBase {
     value: string;
@@ -121,25 +122,30 @@ const CleaningRequirements :React.FC = () => {
                 <Text color='gray.500' fontSize='lg' userSelect='none' position= 'absolute' right='3%'>m²</Text>
             </InputElement>
             <OrderHeading mt='10'>Колко често ще са посещенията?</OrderHeading>
-            <Controller control={control}
+            <BoxSelectionSet<BookingFormArgs>
+                // TODO use register instead of control. How about that!!!!
+                register={register}
+                getPropertyState = {getService}
+                changeHandler= {(property, newValue: any) => setFrequency(name)}
+                selectionVariation=: {name: "cleaningServices", id: number, selectable: boolean}[]
+                name= "cleaningServices"
+            />
+            {/* <Controller control={control}
                 name="frequency"
                 render={({ field: { onChange, value } }) => (
                     <FormControl isInvalid={errors["frequency"] ? true : false}>
                         <RadioGroup className={styles.radioSelections} onChange={(e) => {console.log(e); onChange(e)}} value={value}>
                             {visitRecurrences.map(recurrence => {
                                 return (
-                                <Radio 
+                                <Radio
                                     isFocusable={false} 
                                     key={recurrence.name} 
                                     value={recurrence.name}
-                                    alignSelf='flex-start'
                                     data-id={recurrence.id}>
                                         <OrderItem key={recurrence.name} data-id={recurrence.id} data-name={recurrence.name} active={selectedFrequency===recurrence.name} selectable={recurrence.selectable} onClick={recurrence.selectable ? () => setFrequency(recurrence.name) : undefined} >
-
                                             <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.label}</Text>                 
                                             <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'bold' : 'normal'}>{recurrence.price}</Text>
                                         </OrderItem>
-                                        {/* <Text fontSize='md' fontWeight={selectedFrequency === recurrence.name ? 'medium' : 'normal'}> {recurrence.label} ({recurrence.price})</Text> */}
                                 </Radio>)
                             })}
                         </RadioGroup>
@@ -148,7 +154,7 @@ const CleaningRequirements :React.FC = () => {
                         </FormErrorMessage>
                     </FormControl>
                 )}
-            />
+            /> */}
 
             <OrderHeading mt='10'>Каква услуга желаете?</OrderHeading>
             <Controller 
@@ -181,8 +187,11 @@ const CleaningRequirements :React.FC = () => {
                     </FormControl>
                 )}
             />
-            <OrderHeading mt='10'>Кога ще почистваме?</OrderHeading>                
-            <Box w='full' display='flex'  flexDir='column' >
+            <Flex alignItems="center" mt='10' mb="4" justifyContent="space-between">
+                <OrderHeading p="0" m="0" textAlign="center">Кога ще почистваме?</OrderHeading>
+                <ButtonRoute size="sm" variant="ghost">Искам повече опции</ButtonRoute>            
+            </Flex>
+                <Box w='full' display='flex'  flexDir='column'>
                     <Box position='relative' mb='6' w='100%' >
                         <OrderLabel>Дата:</OrderLabel>
                         <Flex onClick={toggleDatePicker} alignItems='center' justifyContent='center' h='14' px='2'  py='3' borderRadius='lg' border={`${errors["date"] ? "2px solid red" : selectedDate ? '1px solid #26a0f7' : '1px solid lightgray'}`} /* boxShadow='rgba(200,200,200,0.3) 0px 4px 10px' */ cursor='pointer'>

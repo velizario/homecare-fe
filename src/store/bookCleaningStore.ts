@@ -6,8 +6,8 @@ import produce from 'immer'
 
 export interface bookCleaningStoreType extends BookingFormArgs {
     toggleService: (service: CleaningServices) => void
-    getService: (service: CleaningServices) => boolean
-    setFrequency: (freq: CleanFreq) => void
+    getProperty: (property: keyof BookingFormArgs) => any
+    setProperty: (property: keyof BookingFormArgs, newValue: any) => void
     getFrequency: () => CleanFreq | undefined
 };
 
@@ -33,8 +33,8 @@ export const formDefaults:BookingFormArgs = {
 const bookCleaningStore = create<bookCleaningStoreType>((set, get) => ({
     ...formDefaults,
     toggleService: (service: CleaningServices) => set(produce((state) => {state.cleaningServices[service] = !state.cleaningServices[service]})),
-    getService: (service: CleaningServices) => get().cleaningServices[service],
-    setFrequency: (freq: CleanFreq) => set(() => ({frequency: freq})),
+    getProperty: (property: keyof BookingFormArgs) => get()[property],
+    setProperty: (property: keyof BookingFormArgs, newValue: any) => set(() => ({[property]: newValue})),
     getFrequency: () => get().frequency,
 }))
 

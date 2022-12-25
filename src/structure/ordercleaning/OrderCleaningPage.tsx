@@ -1,8 +1,8 @@
 import { Box, Container, Image } from "@chakra-ui/react"
 import Tabulator from "./Tabulator";
 import freskalogo from '../../resources/freskalogo.svg'
-import Header from "../homepage/Header";
-import Footer from "../homepage/Footer";
+import Header from "../headerFooter/Header";
+import Footer from "../headerFooter/Footer";
 
 const OrderCleaningPage:React.FC = () => {
     return (
